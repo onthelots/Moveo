@@ -14,9 +14,11 @@
 		5280C3A8294CCA70004D241C /* LodingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5280C3A7294CCA70004D241C /* LodingView.swift */; };
 		529C2F98294DCA3E00366BCB /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 529C2F97294DCA3E00366BCB /* LoginView.swift */; };
 		529C2F9D294DCB2200366BCB /* FeedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 529C2F9C294DCB2200366BCB /* FeedView.swift */; };
-		529C2F9F294DD02A00366BCB /* SerchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 529C2F9E294DD02A00366BCB /* SerchView.swift */; };
+		529C2F9F294DD02A00366BCB /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 529C2F9E294DD02A00366BCB /* SearchView.swift */; };
 		529C2FA1294DD03600366BCB /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 529C2FA0294DD03600366BCB /* ProfileView.swift */; };
 		529C2FA5294E0BCC00366BCB /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 529C2FA4294E0BCC00366BCB /* MainView.swift */; };
+		52F42BF3294F3F7000F94AC1 /* ViewStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F42BF2294F3F7000F94AC1 /* ViewStore.swift */; };
+		52F42BF5294F40CB00F94AC1 /* LodingAndLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F42BF4294F40CB00F94AC1 /* LodingAndLoginView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,9 +30,11 @@
 		5280C3A7294CCA70004D241C /* LodingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LodingView.swift; sourceTree = "<group>"; };
 		529C2F97294DCA3E00366BCB /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		529C2F9C294DCB2200366BCB /* FeedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedView.swift; sourceTree = "<group>"; };
-		529C2F9E294DD02A00366BCB /* SerchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SerchView.swift; sourceTree = "<group>"; };
+		529C2F9E294DD02A00366BCB /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 		529C2FA0294DD03600366BCB /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		529C2FA4294E0BCC00366BCB /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		52F42BF2294F3F7000F94AC1 /* ViewStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewStore.swift; sourceTree = "<group>"; };
+		52F42BF4294F40CB00F94AC1 /* LodingAndLoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LodingAndLoginView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,12 +89,13 @@
 			isa = PBXGroup;
 			children = (
 				5280C39B294CCA55004D241C /* ContentView.swift */,
+				52F42BF4294F40CB00F94AC1 /* LodingAndLoginView.swift */,
 				5280C3A7294CCA70004D241C /* LodingView.swift */,
 				529C2F97294DCA3E00366BCB /* LoginView.swift */,
-				529C2F9C294DCB2200366BCB /* FeedView.swift */,
-				529C2F9E294DD02A00366BCB /* SerchView.swift */,
-				529C2FA0294DD03600366BCB /* ProfileView.swift */,
 				529C2FA4294E0BCC00366BCB /* MainView.swift */,
+				529C2F9C294DCB2200366BCB /* FeedView.swift */,
+				529C2F9E294DD02A00366BCB /* SearchView.swift */,
+				529C2FA0294DD03600366BCB /* ProfileView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -105,6 +110,7 @@
 		529C2F96294DCA0F00366BCB /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				52F42BF2294F3F7000F94AC1 /* ViewStore.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -181,12 +187,14 @@
 			files = (
 				529C2FA1294DD03600366BCB /* ProfileView.swift in Sources */,
 				529C2FA5294E0BCC00366BCB /* MainView.swift in Sources */,
+				52F42BF3294F3F7000F94AC1 /* ViewStore.swift in Sources */,
 				5280C39C294CCA55004D241C /* ContentView.swift in Sources */,
 				5280C3A8294CCA70004D241C /* LodingView.swift in Sources */,
 				529C2F98294DCA3E00366BCB /* LoginView.swift in Sources */,
 				529C2F9D294DCB2200366BCB /* FeedView.swift in Sources */,
+				52F42BF5294F40CB00F94AC1 /* LodingAndLoginView.swift in Sources */,
 				5280C39A294CCA55004D241C /* MoveoApp.swift in Sources */,
-				529C2F9F294DD02A00366BCB /* SerchView.swift in Sources */,
+				529C2F9F294DD02A00366BCB /* SearchView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

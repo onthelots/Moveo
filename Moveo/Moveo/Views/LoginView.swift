@@ -8,63 +8,71 @@
 import SwiftUI
 
 struct LoginView: View {
+    // TODO: - LoginStore 만들고 난 후 삭제할 변수들
     @State private var id: String = ""
     @State private var password: String = ""
+    @State private var aniOpacity: CGFloat = 0
     
     var body: some View {
         NavigationStack {
-            ZStack {
-                Image("loginView")
+            VStack {
+                Image("mainLogo")
                     .resizable()
+                    .scaledToFit()
+                    .padding(.bottom, 40)
+                    .padding(.top, 65)
                 
-                ZStack {
-                    TextField(text: $id) {
-                        Text("아이디를 입력해주세요")
+                VStack {
+                    Group {
+                        TextField("Email", text: $id)
+                            .keyboardType(.emailAddress)
+                            .autocorrectionDisabled()
+                            .textInputAutocapitalization(.never)
+                        
+                        SecureField("Password", text: $password)
                     }
-                    .zIndex(1)
-                    .padding(.leading, 50)
+                    .padding(10)
+                    .background(Color.pointGray)
+                    .padding(.horizontal, 30)
                     
-                    Rectangle()
-                        .frame(width: 328, height: 52)
-                        .cornerRadius(8)
-                        .foregroundColor(.pointGray)
-                }
-                .offset(y: -30)
-                
-                ZStack {
-                    TextField(text: $id) {
-                        Text("비밀번호를 입력해주세요")
+                    Button {
+                        // MARK: - LoginStore login 함수 자리
+                    } label: {
+                        ZStack {
+                            Rectangle()
+                                .frame(width: 335, height: 45)
+                                .cornerRadius(5)
+                                .foregroundColor(.mainColor)
+                            Text("로그인")
+                                .font(.title3)
+                                .foregroundColor(.black)
+                        }
                     }
-                    .zIndex(1)
-                    .padding(.leading, 50)
+                    .padding()
                     
-                    Rectangle()
-                        .frame(width: 328, height: 52)
-                        .cornerRadius(8)
-                        .foregroundColor(.pointGray)
+                    Spacer()
+                    
+                    HStack {
+                        Text("아직 회원이 아니신가요?")
+                            .font(.callout)
+                            .foregroundColor(.gray)
+                        
+                        // TODO: - 회원가입 뷰 만들면 destination 수정 필요
+                        NavigationLink(destination: FeedView()) {
+                            Text("회원가입")
+                                .font(.callout)
+                                .foregroundColor(.blue)
+                        }
+                    }
+                    .padding(.bottom, 10)
                 }
-                .offset(y: 30)
-                
-                NavigationLink(destination: MainView()) {
-                    ZStack {
-                        Rectangle()
-                            .frame(width: 328, height: 52)
-                            .cornerRadius(8)
-                            .foregroundColor(.mainColor)
-                        Text("로그인")
-                            .font(.title2)
-                            .foregroundColor(.black)
+                .opacity(aniOpacity)
+                .onAppear {
+                    withAnimation(.easeIn(duration: 0.6)) {
+                        aniOpacity = 1
                     }
                 }
-                .offset(y: 100)
-                
-                Text("비밀번호를 잊으셨나요?")
-                    .offset(y:150)
-                    .font(.callout)
-                    .foregroundColor(.gray)
             }
-            .navigationBarBackButtonHidden(true)
-            .ignoresSafeArea()
         }
     }
 }
