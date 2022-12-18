@@ -11,7 +11,7 @@ import SwiftUI
 struct MoveoApp: App {
     var body: some Scene {
         WindowGroup {
-            LodingAndLoginView()
+            ContentView()
                 .environmentObject(ViewStore())
         }
     }

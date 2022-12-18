@@ -10,7 +10,7 @@ import SwiftUI
 struct LodingAndLoginView: View {
     @EnvironmentObject var viewStore: ViewStore
     var body: some View {
-        if viewStore.lodingViewChanger == true {
+        if viewStore.lodingViewChanger {
             LodingView()
         } else {
             LoginView()

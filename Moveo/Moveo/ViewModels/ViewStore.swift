@@ -9,4 +9,5 @@ import Foundation
 
 class ViewStore: ObservableObject {
     @Published var lodingViewChanger: Bool = true
+    @Published var currentLoginCheckViewChanger: Bool = true
 }

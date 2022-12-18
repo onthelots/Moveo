@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct LoginView: View {
+    @EnvironmentObject var viewStore: ViewStore
+    
     // TODO: - LoginStore 만들고 난 후 삭제할 변수들
     @State private var id: String = ""
     @State private var password: String = ""
@@ -36,6 +38,7 @@ struct LoginView: View {
                     .padding(.horizontal, 30)
                     
                     Button {
+                        viewStore.currentLoginCheckViewChanger = false
                         // MARK: - LoginStore login 함수 자리
                     } label: {
                         ZStack {
@@ -80,5 +83,6 @@ struct LoginView: View {
 struct LoginView_Previews: PreviewProvider {
     static var previews: some View {
         LoginView()
+            .environmentObject(ViewStore())
     }
 }
