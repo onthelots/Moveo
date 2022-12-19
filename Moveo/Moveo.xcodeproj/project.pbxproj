@@ -22,6 +22,13 @@
 		52DAB10A295021F1005937DB /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 52DAB109295021F1005937DB /* FirebaseFirestoreSwift */; };
 		52DAB10C295021F1005937DB /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 52DAB10B295021F1005937DB /* FirebaseStorage */; };
 		52DAB10E29502351005937DB /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 52DAB10D29502351005937DB /* GoogleService-Info.plist */; };
+		52DAB1102950287D005937DB /* PostStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52DAB10F2950287C005937DB /* PostStore.swift */; };
+		52DAB112295028B0005937DB /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52DAB111295028B0005937DB /* Post.swift */; };
+		52DAB114295029C0005937DB /* Like.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52DAB113295029C0005937DB /* Like.swift */; };
+		52DAB11629502AD0005937DB /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52DAB11529502AD0005937DB /* Comment.swift */; };
+		52DAB118295033EB005937DB /* AddPostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52DAB117295033EB005937DB /* AddPostView.swift */; };
+		52DAB11A2950341F005937DB /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52DAB1192950341F005937DB /* ImagePicker.swift */; };
+		52DAB11F295044D1005937DB /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 52DAB11E295044D1005937DB /* SDWebImageSwiftUI */; };
 		52F42BF3294F3F7000F94AC1 /* ViewStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F42BF2294F3F7000F94AC1 /* ViewStore.swift */; };
 		52F42BF5294F40CB00F94AC1 /* LodingAndLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F42BF4294F40CB00F94AC1 /* LodingAndLoginView.swift */; };
 		52F42BF7294F7F2300F94AC1 /* ContainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F42BF6294F7F2300F94AC1 /* ContainTabView.swift */; };
@@ -40,6 +47,12 @@
 		529C2FA0294DD03600366BCB /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		529C2FA4294E0BCC00366BCB /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		52DAB10D29502351005937DB /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		52DAB10F2950287C005937DB /* PostStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostStore.swift; sourceTree = "<group>"; };
+		52DAB111295028B0005937DB /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
+		52DAB113295029C0005937DB /* Like.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Like.swift; sourceTree = "<group>"; };
+		52DAB11529502AD0005937DB /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
+		52DAB117295033EB005937DB /* AddPostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPostView.swift; sourceTree = "<group>"; };
+		52DAB1192950341F005937DB /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		52F42BF2294F3F7000F94AC1 /* ViewStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewStore.swift; sourceTree = "<group>"; };
 		52F42BF4294F40CB00F94AC1 /* LodingAndLoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LodingAndLoginView.swift; sourceTree = "<group>"; };
 		52F42BF6294F7F2300F94AC1 /* ContainTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainTabView.swift; sourceTree = "<group>"; };
@@ -50,6 +63,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				52DAB11F295044D1005937DB /* SDWebImageSwiftUI in Frameworks */,
 				52DAB106295021F1005937DB /* FirebaseAuth in Frameworks */,
 				52DAB10C295021F1005937DB /* FirebaseStorage in Frameworks */,
 				52DAB108295021F1005937DB /* FirebaseFirestore in Frameworks */,
@@ -83,6 +97,7 @@
 				529C2F94294DC9F600366BCB /* Views */,
 				529C2F95294DCA0500366BCB /* Models */,
 				529C2F96294DCA0F00366BCB /* ViewModels */,
+				52DAB10D29502351005937DB /* GoogleService-Info.plist */,
 				5280C39D294CCA56004D241C /* Assets.xcassets */,
 				5280C39F294CCA56004D241C /* Preview Content */,
 			);
@@ -109,6 +124,7 @@
 				529C2F9C294DCB2200366BCB /* FeedView.swift */,
 				529C2F9E294DD02A00366BCB /* SearchView.swift */,
 				529C2FA0294DD03600366BCB /* ProfileView.swift */,
+				52DAB117295033EB005937DB /* AddPostView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -116,7 +132,9 @@
 		529C2F95294DCA0500366BCB /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				52DAB10D29502351005937DB /* GoogleService-Info.plist */,
+				52DAB111295028B0005937DB /* Post.swift */,
+				52DAB113295029C0005937DB /* Like.swift */,
+				52DAB11529502AD0005937DB /* Comment.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -124,7 +142,9 @@
 		529C2F96294DCA0F00366BCB /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				52DAB10F2950287C005937DB /* PostStore.swift */,
 				52F42BF2294F3F7000F94AC1 /* ViewStore.swift */,
+				52DAB1192950341F005937DB /* ImagePicker.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -150,6 +170,7 @@
 				52DAB107295021F1005937DB /* FirebaseFirestore */,
 				52DAB109295021F1005937DB /* FirebaseFirestoreSwift */,
 				52DAB10B295021F1005937DB /* FirebaseStorage */,
+				52DAB11E295044D1005937DB /* SDWebImageSwiftUI */,
 			);
 			productName = Moveo;
 			productReference = 5280C396294CCA55004D241C /* Moveo.app */;
@@ -181,6 +202,7 @@
 			mainGroup = 5280C38D294CCA55004D241C;
 			packageReferences = (
 				52DAB104295021F1005937DB /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				52DAB11D295044D1005937DB /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */,
 			);
 			productRefGroup = 5280C397294CCA55004D241C /* Products */;
 			projectDirPath = "";
@@ -212,10 +234,16 @@
 				529C2FA1294DD03600366BCB /* ProfileView.swift in Sources */,
 				529C2FA5294E0BCC00366BCB /* MainView.swift in Sources */,
 				52F42BF3294F3F7000F94AC1 /* ViewStore.swift in Sources */,
+				52DAB11A2950341F005937DB /* ImagePicker.swift in Sources */,
 				5280C39C294CCA55004D241C /* ContentView.swift in Sources */,
+				52DAB112295028B0005937DB /* Post.swift in Sources */,
 				5280C3A8294CCA70004D241C /* LodingView.swift in Sources */,
+				52DAB118295033EB005937DB /* AddPostView.swift in Sources */,
+				52DAB114295029C0005937DB /* Like.swift in Sources */,
+				52DAB1102950287D005937DB /* PostStore.swift in Sources */,
 				529C2F98294DCA3E00366BCB /* LoginView.swift in Sources */,
 				52F42BF7294F7F2300F94AC1 /* ContainTabView.swift in Sources */,
+				52DAB11629502AD0005937DB /* Comment.swift in Sources */,
 				529C2F9D294DCB2200366BCB /* FeedView.swift in Sources */,
 				52F42BF5294F40CB00F94AC1 /* LodingAndLoginView.swift in Sources */,
 				5280C39A294CCA55004D241C /* MoveoApp.swift in Sources */,
@@ -428,6 +456,14 @@
 				kind = branch;
 			};
 		};
+		52DAB11D295044D1005937DB /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SDWebImage/SDWebImageSwiftUI.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -450,6 +486,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 52DAB104295021F1005937DB /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseStorage;
+		};
+		52DAB11E295044D1005937DB /* SDWebImageSwiftUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 52DAB11D295044D1005937DB /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */;
+			productName = SDWebImageSwiftUI;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

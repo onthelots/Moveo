@@ -1,12 +1,19 @@
+//
+//  FeedView.swift
+//  Moveo
+//
+//  Created by 진준호 on 2022/12/17.
+//
+
 import SwiftUI
+import SDWebImageSwiftUI
 
 struct FeedView: View {
+    @EnvironmentObject var postStore: PostStore
     @State private var cardScale: Bool = true
     @State private var cardScale1: Bool = true
     @State private var cardWidth: CGFloat = 160
     @State private var cardHeight: CGFloat = 240
-    
-    var columns: [GridItem] = Array(repeating: .init(.flexible()), count: 2)
     
     var body: some View {
         NavigationStack {
@@ -25,6 +32,7 @@ struct FeedView: View {
                         
                         NavigationLink {
                             // TODO: - 글쓰기 페이지에 연결
+                            AddPostView()
                         } label: {
                             Image(systemName: "plus.circle")
                                 .resizable()
@@ -39,54 +47,47 @@ struct FeedView: View {
                     
                     // TODO: - 추후 피드들 넣을 스크롤뷰, 현재 카드형태로 넣을 예정
                     ScrollView(showsIndicators: false, content: {
-                        LazyVGrid(columns: columns, spacing: 20) {
-                            RoundedRectangle(cornerRadius: 10)
-                                .frame(width: cardScale ? 160 : 320, height: cardScale ? 240 : 480)
-                                .foregroundColor(.mainColor)
-                                .animation(.linear(duration: 0.2), value: cardScale)
-                                .shadow(radius: 3, x: 3, y: 3)
-                                .zIndex(cardScale ? 1 : 2)
-                                .onTapGesture {
-                                    cardScale.toggle()
-                                }
-                                //.scaleEffect(cardScale ? 1 : 2.1, anchor: .topLeading)
-                            
-                            RoundedRectangle(cornerRadius: 10)
-                                .frame(width: 160, height: 240)
-                                .foregroundColor(.mainColor)
-                                .scaleEffect(cardScale1 ? 1 : 2.1, anchor: .topTrailing)
-                                .animation(.linear(duration: 0.2), value: cardScale1)
-                                .shadow(radius: 3, x: 3, y: 3)
-                                .zIndex(cardScale1 ? 1 : 2)
-                                .onTapGesture {
-                                    cardScale1.toggle()
-                                }
-                            
-                            
-                            RoundedRectangle(cornerRadius: 10)
-                                .frame(width: 160, height: 240)
-                                .foregroundColor(.mainColor)
-                                .shadow(radius: 3, x: 3, y: 3)
-                            
-                            RoundedRectangle(cornerRadius: 10)
-                                .frame(width: 160, height: 240)
-                                .foregroundColor(.mainColor)
-                                .shadow(radius: 3, x: 3, y: 3)
-                            
-                            RoundedRectangle(cornerRadius: 10)
-                                .frame(width: 160, height: 240)
-                                .foregroundColor(.mainColor)
-                                .shadow(radius: 3, x: 3, y: 3)
-                            
-                            RoundedRectangle(cornerRadius: 10)
-                                .frame(width: 160, height: 240)
-                                .foregroundColor(.mainColor)
-                                .shadow(radius: 3, x: 3, y: 3)
+                        ForEach(postStore.posts) { post in
+                            CardView(post: post)
+                                .cornerRadius(10)
                         }
+                        .shadow(radius: 5)
                     })
                 }
-                .padding(.horizontal, 20)
+                .padding(.horizontal, 15)
                 
+            }
+        }
+        .onAppear {
+            postStore.fetchPosts()
+        }
+        .refreshable {
+            postStore.fetchPosts()
+        }
+    }
+}
+
+struct CardView: View {
+    @EnvironmentObject var postStore: PostStore
+    var post: Post
+    
+    var body: some View {
+        ZStack {
+            VStack {
+                WebImage(url: URL(string: post.postImageUrl))
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+                    .frame(width: 330, height: 370, alignment: .center)
+                    .clipped()
+                
+                ZStack {
+                    Text(post.bodyText)
+                        .zIndex(1)
+                    
+                    Rectangle()
+                        .frame(width: 330, height: 80)
+                        .foregroundColor(.white)
+                }
             }
         }
     }
@@ -95,5 +96,6 @@ struct FeedView: View {
 struct FeedView_Previews: PreviewProvider {
     static var previews: some View {
         FeedView()
+            .environmentObject(PostStore())
     }
 }

@@ -40,7 +40,7 @@ struct MainView: View {
                         }
                         
                         NavigationLink {
-                            // TODO: - 글쓰기 페이지에 연결
+                            AddPostView()
                         } label: {
                             Image(systemName: "plus.circle")
                                 .resizable()

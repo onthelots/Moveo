@@ -17,8 +17,10 @@ struct MoveoApp: App {
     
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            //ContentView()
+            FeedView()
                 .environmentObject(ViewStore())
+                .environmentObject(PostStore())
         }
     }
 }
