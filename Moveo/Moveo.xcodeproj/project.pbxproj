@@ -34,6 +34,14 @@
 		52F42BF7294F7F2300F94AC1 /* ContainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F42BF6294F7F2300F94AC1 /* ContainTabView.swift */; };
 		F259966429505725004E5AD1 /* LoginSignupStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = F259966329505725004E5AD1 /* LoginSignupStore.swift */; };
 		F259966629505769004E5AD1 /* SignupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F259966529505769004E5AD1 /* SignupView.swift */; };
+		F259967129505AE2004E5AD1 /* DateValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = F259966F29505AE2004E5AD1 /* DateValue.swift */; };
+		F259967229505AE2004E5AD1 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = F259967029505AE2004E5AD1 /* Task.swift */; };
+		F259967829505AFC004E5AD1 /* AddSchedule.swift in Sources */ = {isa = PBXBuildFile; fileRef = F259967429505AFC004E5AD1 /* AddSchedule.swift */; };
+		F259967929505AFC004E5AD1 /* CustomDatePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = F259967529505AFC004E5AD1 /* CustomDatePicker.swift */; };
+		F259967A29505AFC004E5AD1 /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = F259967629505AFC004E5AD1 /* Home.swift */; };
+		F259967B29505AFC004E5AD1 /* ScheduleToggle.swift in Sources */ = {isa = PBXBuildFile; fileRef = F259967729505AFC004E5AD1 /* ScheduleToggle.swift */; };
+		F259967E29505B0E004E5AD1 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F259967D29505B0E004E5AD1 /* HomeViewModel.swift */; };
+		F259968029505E6D004E5AD1 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = F259967F29505E6D004E5AD1 /* User.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -60,6 +68,14 @@
 		52F42BF6294F7F2300F94AC1 /* ContainTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainTabView.swift; sourceTree = "<group>"; };
 		F259966329505725004E5AD1 /* LoginSignupStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginSignupStore.swift; sourceTree = "<group>"; };
 		F259966529505769004E5AD1 /* SignupView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignupView.swift; sourceTree = "<group>"; };
+		F259966F29505AE2004E5AD1 /* DateValue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateValue.swift; sourceTree = "<group>"; };
+		F259967029505AE2004E5AD1 /* Task.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
+		F259967429505AFC004E5AD1 /* AddSchedule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddSchedule.swift; sourceTree = "<group>"; };
+		F259967529505AFC004E5AD1 /* CustomDatePicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomDatePicker.swift; sourceTree = "<group>"; };
+		F259967629505AFC004E5AD1 /* Home.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Home.swift; sourceTree = "<group>"; };
+		F259967729505AFC004E5AD1 /* ScheduleToggle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScheduleToggle.swift; sourceTree = "<group>"; };
+		F259967D29505B0E004E5AD1 /* HomeViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
+		F259967F29505E6D004E5AD1 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -121,15 +137,13 @@
 			children = (
 				5280C39B294CCA55004D241C /* ContentView.swift */,
 				52F42BF6294F7F2300F94AC1 /* ContainTabView.swift */,
-				52F42BF4294F40CB00F94AC1 /* LodingAndLoginView.swift */,
-				52DAB117295033EB005937DB /* AddPostView.swift */,
-				F259966D29505938004E5AD1 /* FeedView */,
 				F259966C29505924004E5AD1 /* LoadingView */,
-				F259966B29505913004E5AD1 /* SearchView */,
 				F259966A295058E2004E5AD1 /* PostView */,
-				F2599669295058C0004E5AD1 /* ProfileView */,
 				F2599668295058B9004E5AD1 /* LoginView */,
 				F25996672950589B004E5AD1 /* MainView */,
+				F259966D29505938004E5AD1 /* FeedView */,
+				F259966B29505913004E5AD1 /* SearchView */,
+				F2599669295058C0004E5AD1 /* ProfileView */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -137,9 +151,11 @@
 		529C2F95294DCA0500366BCB /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				F259966E29505AE2004E5AD1 /* CalanderModel */,
 				52DAB111295028B0005937DB /* Post.swift */,
 				52DAB113295029C0005937DB /* Like.swift */,
 				52DAB11529502AD0005937DB /* Comment.swift */,
+				F259967F29505E6D004E5AD1 /* User.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -147,6 +163,7 @@
 		529C2F96294DCA0F00366BCB /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				F259967C29505B0E004E5AD1 /* CalanderViewModel */,
 				52DAB10F2950287C005937DB /* PostStore.swift */,
 				52DAB1192950341F005937DB /* ImagePicker.swift */,
 				52F42BF2294F3F7000F94AC1 /* ViewStore.swift */,
@@ -158,6 +175,7 @@
 		F25996672950589B004E5AD1 /* MainView */ = {
 			isa = PBXGroup;
 			children = (
+				F259967329505AFC004E5AD1 /* CalanderView */,
 				529C2FA4294E0BCC00366BCB /* MainView.swift */,
 			);
 			path = MainView;
@@ -183,6 +201,7 @@
 		F259966A295058E2004E5AD1 /* PostView */ = {
 			isa = PBXGroup;
 			children = (
+				52DAB117295033EB005937DB /* AddPostView.swift */,
 			);
 			path = PostView;
 			sourceTree = "<group>";
@@ -198,6 +217,7 @@
 		F259966C29505924004E5AD1 /* LoadingView */ = {
 			isa = PBXGroup;
 			children = (
+				52F42BF4294F40CB00F94AC1 /* LodingAndLoginView.swift */,
 				5280C3A7294CCA70004D241C /* LodingView.swift */,
 			);
 			path = LoadingView;
@@ -209,6 +229,34 @@
 				529C2F9C294DCB2200366BCB /* FeedView.swift */,
 			);
 			path = FeedView;
+			sourceTree = "<group>";
+		};
+		F259966E29505AE2004E5AD1 /* CalanderModel */ = {
+			isa = PBXGroup;
+			children = (
+				F259966F29505AE2004E5AD1 /* DateValue.swift */,
+				F259967029505AE2004E5AD1 /* Task.swift */,
+			);
+			path = CalanderModel;
+			sourceTree = "<group>";
+		};
+		F259967329505AFC004E5AD1 /* CalanderView */ = {
+			isa = PBXGroup;
+			children = (
+				F259967429505AFC004E5AD1 /* AddSchedule.swift */,
+				F259967529505AFC004E5AD1 /* CustomDatePicker.swift */,
+				F259967629505AFC004E5AD1 /* Home.swift */,
+				F259967729505AFC004E5AD1 /* ScheduleToggle.swift */,
+			);
+			path = CalanderView;
+			sourceTree = "<group>";
+		};
+		F259967C29505B0E004E5AD1 /* CalanderViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				F259967D29505B0E004E5AD1 /* HomeViewModel.swift */,
+			);
+			path = CalanderViewModel;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -298,19 +346,27 @@
 				529C2FA5294E0BCC00366BCB /* MainView.swift in Sources */,
 				52F42BF3294F3F7000F94AC1 /* ViewStore.swift in Sources */,
 				52DAB11A2950341F005937DB /* ImagePicker.swift in Sources */,
+				F259968029505E6D004E5AD1 /* User.swift in Sources */,
 				5280C39C294CCA55004D241C /* ContentView.swift in Sources */,
 				F259966429505725004E5AD1 /* LoginSignupStore.swift in Sources */,
 				52DAB112295028B0005937DB /* Post.swift in Sources */,
 				5280C3A8294CCA70004D241C /* LodingView.swift in Sources */,
+				F259967129505AE2004E5AD1 /* DateValue.swift in Sources */,
 				52DAB118295033EB005937DB /* AddPostView.swift in Sources */,
 				52DAB114295029C0005937DB /* Like.swift in Sources */,
+				F259967829505AFC004E5AD1 /* AddSchedule.swift in Sources */,
 				52DAB1102950287D005937DB /* PostStore.swift in Sources */,
 				529C2F98294DCA3E00366BCB /* LoginView.swift in Sources */,
 				52F42BF7294F7F2300F94AC1 /* ContainTabView.swift in Sources */,
 				52DAB11629502AD0005937DB /* Comment.swift in Sources */,
 				529C2F9D294DCB2200366BCB /* FeedView.swift in Sources */,
+				F259967929505AFC004E5AD1 /* CustomDatePicker.swift in Sources */,
+				F259967B29505AFC004E5AD1 /* ScheduleToggle.swift in Sources */,
 				52F42BF5294F40CB00F94AC1 /* LodingAndLoginView.swift in Sources */,
+				F259967E29505B0E004E5AD1 /* HomeViewModel.swift in Sources */,
 				5280C39A294CCA55004D241C /* MoveoApp.swift in Sources */,
+				F259967229505AE2004E5AD1 /* Task.swift in Sources */,
+				F259967A29505AFC004E5AD1 /* Home.swift in Sources */,
 				529C2F9F294DD02A00366BCB /* SearchView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

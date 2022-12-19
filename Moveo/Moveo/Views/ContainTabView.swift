@@ -13,7 +13,7 @@ struct ContainTabView: View {
     var body: some View {
         TabView(selection: $tabSelection) {
             NavigationView {
-                MainView()
+                Home()
             }.tabItem {
                 Image(systemName:"house.fill")
                 Text("홈")
@@ -47,5 +47,6 @@ struct ContainTabView_Previews: PreviewProvider {
     static var previews: some View {
         ContainTabView()
             .environmentObject(ViewStore())
+            .environmentObject(SampleTask())
     }
 }
