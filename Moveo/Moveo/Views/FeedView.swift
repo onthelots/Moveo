@@ -3,6 +3,9 @@ import SwiftUI
 struct FeedView: View {
     @State private var cardScale: Bool = true
     @State private var cardScale1: Bool = true
+    @State private var cardWidth: CGFloat = 160
+    @State private var cardHeight: CGFloat = 240
+    
     var columns: [GridItem] = Array(repeating: .init(.flexible()), count: 2)
     
     var body: some View {
@@ -38,15 +41,15 @@ struct FeedView: View {
                     ScrollView(showsIndicators: false, content: {
                         LazyVGrid(columns: columns, spacing: 20) {
                             RoundedRectangle(cornerRadius: 10)
-                                .frame(width: 160, height: 240)
+                                .frame(width: cardScale ? 160 : 320, height: cardScale ? 240 : 480)
                                 .foregroundColor(.mainColor)
-                                .scaleEffect(cardScale ? 1 : 2.1, anchor: .topLeading)
                                 .animation(.linear(duration: 0.2), value: cardScale)
                                 .shadow(radius: 3, x: 3, y: 3)
                                 .zIndex(cardScale ? 1 : 2)
                                 .onTapGesture {
                                     cardScale.toggle()
                                 }
+                                //.scaleEffect(cardScale ? 1 : 2.1, anchor: .topLeading)
                             
                             RoundedRectangle(cornerRadius: 10)
                                 .frame(width: 160, height: 240)

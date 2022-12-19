@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>605531482428-03fu3t5m8vm2ecpucvq82m9fs1j65ic8.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.605531482428-03fu3t5m8vm2ecpucvq82m9fs1j65ic8</string>
+	<key>API_KEY</key>
+	<string>AIzaSyCZmp5UbuE_CTzxPIU1E43ochoRhBBXImI</string>
+	<key>GCM_SENDER_ID</key>
+	<string>605531482428</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.codelion.Moveo</string>
+	<key>PROJECT_ID</key>
+	<string>moveo-2f0df</string>
+	<key>STORAGE_BUCKET</key>
+	<string>moveo-2f0df.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:605531482428:ios:4e477a643e79d4ac4cd639</string>
+</dict>
+</plist>
