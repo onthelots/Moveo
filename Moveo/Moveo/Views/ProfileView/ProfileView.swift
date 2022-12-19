@@ -9,6 +9,9 @@ import SwiftUI
 
 // TODO: - 형태는 유지하되 전체적으로 데이터를 받아와서 보여줄 수 있도록 할 것
 struct ProfileView: View {
+    
+    @EnvironmentObject var loginSignupStore: LoginSignupStore
+    
     @State var isExpanded = false
     @State var subviewHeight : CGFloat = 0
     @State var motiDegree : CGFloat = 90
@@ -19,6 +22,8 @@ struct ProfileView: View {
     @State var myToggle: Bool = true
     @State var bookToggle: Bool = false
     @State var menuXAxis: Double = -90
+    
+    @State private var isSelectedMenu: Bool = false
     
     var columns : [GridItem] = Array(repeating: GridItem(.flexible(), spacing: nil, alignment: nil), count: 2)
     
@@ -37,7 +42,7 @@ struct ProfileView: View {
                         Spacer()
                         
                         NavigationLink(destination: {
-                        
+                            Text("보관함")
                         }, label: {
                             Image(systemName: "tray.full")
                                 .foregroundColor(.black)
@@ -45,12 +50,23 @@ struct ProfileView: View {
                                 .bold()
                         })
                         
-                        Image(systemName: "list.bullet")
-                            .font(.title2)
-                            .bold()
+                        Button {
+                            isSelectedMenu.toggle()
+                        } label: {
+                            Image(systemName: "list.bullet")
+                                .font(.title2)
+                                .bold()
+                        }
+                        
                     }
+                    .pickerStyle(.menu)
                     .padding(.horizontal, 20)
                     .padding(.top, 10)
+                    .confirmationDialog("메뉴", isPresented: $isSelectedMenu) {
+                        Button("로그아웃", role: .destructive) {
+                            loginSignupStore.logout()
+                        }
+                    }
                     
                     ScrollView {
                         VStack {
@@ -315,4 +331,5 @@ struct ProfileView_Previews: PreviewProvider {
         ProfileView()
     }
 }
+
 

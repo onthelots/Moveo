@@ -61,7 +61,7 @@ struct LoginView: View {
                             .foregroundColor(.gray)
                         
                         // TODO: - 회원가입 뷰 만들면 destination 수정 필요
-                        NavigationLink(destination: FeedView()) {
+                        NavigationLink(destination: SignupView()) {
                             Text("회원가입")
                                 .font(.callout)
                                 .foregroundColor(.blue)
