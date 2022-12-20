@@ -13,4 +13,20 @@ struct User : Codable, Identifiable {
     var email : String
     var name : String
     var nickName : String
+    var category : String
+}
+
+struct Bookmark : Codable, Identifiable {
+    var id : String
+    var postUid : String
+}
+
+struct Follower : Codable, Identifiable {
+    var id : String
+    var followerUid : String
+}
+
+struct Following : Codable, Identifiable {
+    var id : String
+    var followingUid : String
 }

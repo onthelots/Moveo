@@ -33,7 +33,6 @@
 		52F42BF5294F40CB00F94AC1 /* LodingAndLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F42BF4294F40CB00F94AC1 /* LodingAndLoginView.swift */; };
 		52F42BF7294F7F2300F94AC1 /* ContainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F42BF6294F7F2300F94AC1 /* ContainTabView.swift */; };
 		F259966429505725004E5AD1 /* LoginSignupStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = F259966329505725004E5AD1 /* LoginSignupStore.swift */; };
-		F259966629505769004E5AD1 /* SignupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F259966529505769004E5AD1 /* SignupView.swift */; };
 		F259967129505AE2004E5AD1 /* DateValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = F259966F29505AE2004E5AD1 /* DateValue.swift */; };
 		F259967229505AE2004E5AD1 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = F259967029505AE2004E5AD1 /* Task.swift */; };
 		F259967829505AFC004E5AD1 /* AddSchedule.swift in Sources */ = {isa = PBXBuildFile; fileRef = F259967429505AFC004E5AD1 /* AddSchedule.swift */; };
@@ -42,6 +41,9 @@
 		F259967B29505AFC004E5AD1 /* ScheduleToggle.swift in Sources */ = {isa = PBXBuildFile; fileRef = F259967729505AFC004E5AD1 /* ScheduleToggle.swift */; };
 		F259967E29505B0E004E5AD1 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F259967D29505B0E004E5AD1 /* HomeViewModel.swift */; };
 		F259968029505E6D004E5AD1 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = F259967F29505E6D004E5AD1 /* User.swift */; };
+		F2E4CC5C2951430000D21D2A /* ProfileImageSetupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2E4CC5B2951430000D21D2A /* ProfileImageSetupView.swift */; };
+		F2E4CC5E2951430600D21D2A /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2E4CC5D2951430600D21D2A /* SignUpView.swift */; };
+		F2E4CC6629514C1700D21D2A /* CategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2E4CC6529514C1700D21D2A /* CategoryView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -67,7 +69,6 @@
 		52F42BF4294F40CB00F94AC1 /* LodingAndLoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LodingAndLoginView.swift; sourceTree = "<group>"; };
 		52F42BF6294F7F2300F94AC1 /* ContainTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainTabView.swift; sourceTree = "<group>"; };
 		F259966329505725004E5AD1 /* LoginSignupStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginSignupStore.swift; sourceTree = "<group>"; };
-		F259966529505769004E5AD1 /* SignupView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignupView.swift; sourceTree = "<group>"; };
 		F259966F29505AE2004E5AD1 /* DateValue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateValue.swift; sourceTree = "<group>"; };
 		F259967029505AE2004E5AD1 /* Task.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
 		F259967429505AFC004E5AD1 /* AddSchedule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddSchedule.swift; sourceTree = "<group>"; };
@@ -76,6 +77,9 @@
 		F259967729505AFC004E5AD1 /* ScheduleToggle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScheduleToggle.swift; sourceTree = "<group>"; };
 		F259967D29505B0E004E5AD1 /* HomeViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		F259967F29505E6D004E5AD1 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		F2E4CC5B2951430000D21D2A /* ProfileImageSetupView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileImageSetupView.swift; sourceTree = "<group>"; };
+		F2E4CC5D2951430600D21D2A /* SignUpView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
+		F2E4CC6529514C1700D21D2A /* CategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -185,7 +189,9 @@
 			isa = PBXGroup;
 			children = (
 				529C2F97294DCA3E00366BCB /* LoginView.swift */,
-				F259966529505769004E5AD1 /* SignupView.swift */,
+				F2E4CC5D2951430600D21D2A /* SignUpView.swift */,
+				F2E4CC5B2951430000D21D2A /* ProfileImageSetupView.swift */,
+				F2E4CC6529514C1700D21D2A /* CategoryView.swift */,
 			);
 			path = LoginView;
 			sourceTree = "<group>";
@@ -341,7 +347,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F259966629505769004E5AD1 /* SignupView.swift in Sources */,
 				529C2FA1294DD03600366BCB /* ProfileView.swift in Sources */,
 				529C2FA5294E0BCC00366BCB /* MainView.swift in Sources */,
 				52F42BF3294F3F7000F94AC1 /* ViewStore.swift in Sources */,
@@ -351,12 +356,15 @@
 				F259966429505725004E5AD1 /* LoginSignupStore.swift in Sources */,
 				52DAB112295028B0005937DB /* Post.swift in Sources */,
 				5280C3A8294CCA70004D241C /* LodingView.swift in Sources */,
+				F2E4CC5C2951430000D21D2A /* ProfileImageSetupView.swift in Sources */,
 				F259967129505AE2004E5AD1 /* DateValue.swift in Sources */,
 				52DAB118295033EB005937DB /* AddPostView.swift in Sources */,
 				52DAB114295029C0005937DB /* Like.swift in Sources */,
 				F259967829505AFC004E5AD1 /* AddSchedule.swift in Sources */,
+				F2E4CC6629514C1700D21D2A /* CategoryView.swift in Sources */,
 				52DAB1102950287D005937DB /* PostStore.swift in Sources */,
 				529C2F98294DCA3E00366BCB /* LoginView.swift in Sources */,
+				F2E4CC5E2951430600D21D2A /* SignUpView.swift in Sources */,
 				52F42BF7294F7F2300F94AC1 /* ContainTabView.swift in Sources */,
 				52DAB11629502AD0005937DB /* Comment.swift in Sources */,
 				529C2F9D294DCB2200366BCB /* FeedView.swift in Sources */,

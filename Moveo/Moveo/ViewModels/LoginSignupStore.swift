@@ -73,7 +73,8 @@ class LoginSignupStore: ObservableObject {
             }
             
             print("Successfully created user: \(result?.user.uid ?? "")")
-            self.storeUserInfoToDatabase(uid: result?.user.uid ?? "")
+//            self.storeUserInfoToDatabase(uid: result?.user.uid ?? "")
+            self.persistImageToStorage()
         }
     }
     
@@ -115,23 +116,57 @@ class LoginSignupStore: ObservableObject {
 //            }
 //        }
 //    }
-    
-    func storeUserInfoToDatabase(uid: String) {
-        
-        let uid = uid
-        
-        print(uid)
-        // model을 쓰면 쉽게 구조화할 수 있음
-        let userData = ["name" : name, "email" : signUpEmail, "uid" : uid]
-        
-        Firestore.firestore().collection("users").document(uid).setData(userData as [String : Any]) { error in
-            if let error = error {
-                print(error)
+    // 회원가입시 프사를 storage에 저장
+        private func persistImageToStorage() {
+            guard let uid = Auth.auth().currentUser?.uid else {
                 return
             }
-            print("success")
+            
+            let ref = Storage.storage().reference(withPath: uid)
+            print(ref)
+            guard let imageData = self.profileImageUrl?.jpegData(compressionQuality: 0.5) else { return }
+            
+    //        ref.putData(selectedImageData.selectedImageData ?? Data(), metadata: nil) { metaData, error in
+            ref.putData(imageData, metadata: nil) { metadata, error in
+                if error != nil {
+                    return
+                }
+                
+                ref.downloadURL { url, error in
+                    if error != nil {
+                        return
+                    }
+                    
+                    print(url?.absoluteString ?? "")
+                    
+                    
+                    guard let url = url else { return }
+                    
+                    self.storeUserInfoToDatabase(profileImg: url)
+                }
+            }
         }
-    }
+    
+    // user 정보 database에 저장
+        func storeUserInfoToDatabase(/*uid: String,*/ profileImg: URL) {
+            guard let uid = Auth.auth().currentUser?.uid else {
+                return
+            }
+    //        let uid = uid
+            
+            print(uid)
+            // model을 쓰면 쉽게 구조화할 수 있음
+            let userData = ["name" : name, "nickName" : nickName, "email" : signUpEmail, "password" : signUpPw, "id" : uid, "profileUrl" : profileImg.absoluteString] as [String : Any]
+            
+            Firestore.firestore().collection("users").document(uid).setData(userData as [String : Any]) { error in
+                if let error = error {
+                    print(error)
+                    return
+                }
+                
+                print("success")
+            }
+        }
     
 //    func fetchUser() {
 //        Firestore.firestore().collection("users")
@@ -156,34 +191,34 @@ class LoginSignupStore: ObservableObject {
 //            }
 //    }
     
-//    func profileImageToStorage(selectedPost: Post) {
-//        let uid = UUID().uuidString
-//
-//        let ref = Storage.storage().reference(withPath: uid)
-//
-//        guard let imageData = profileImageUrl?.jpegData(compressionQuality: 0.5) else {
-//            return
-//        }
-//
-//        ref.putData(imageData) { metadata, error in
-//            if let error = error {
-//                print("\(error)")
-//                return
-//            }
-//
-//            ref.downloadURL() { url, error in
-//                if let error = error {
-//                    print(error)
-//                    return
-//                }
-//                print(url?.absoluteString ?? "망함")
-//
-//                guard let url = url else { return }
-//
+    func profileImageToStorage(selectedPost: Post) {
+        let uid = UUID().uuidString
+
+        let ref = Storage.storage().reference(withPath: uid)
+
+        guard let imageData = profileImageUrl?.jpegData(compressionQuality: 0.5) else {
+            return
+        }
+
+        ref.putData(imageData) { metadata, error in
+            if let error = error {
+                print("\(error)")
+                return
+            }
+
+            ref.downloadURL() { url, error in
+                if let error = error {
+                    print(error)
+                    return
+                }
+                print(url?.absoluteString ?? "망함")
+
+                guard let url = url else { return }
+
 //                self.profileUpdate(profileImageUrl: url, selectedPost: selectedPost)
-//            }
-//        }
-//    }
+            }
+        }
+    }
     
 //    func profileUpdate(profileImageUrl: URL, selectedPost: Post) {
 //        let uid = selectedPost.currentUser
