@@ -39,7 +39,7 @@ struct ProfileImageSetupView: View {
                         
                         Rectangle()
                             .fill(Color.white)
-                            .frame(width: 400, height: 330)
+                            .frame(width: 400, height: 340)
                             .cornerRadius(10)
                             .overlay(
                                 Circle()
@@ -48,9 +48,18 @@ struct ProfileImageSetupView: View {
                     }
                 }
             }
+            .padding(.top, 50)
             
             Spacer()
-                .frame(height: 100)
+                .frame(height: 70)
+            
+            TextField("자기소개를 해주세요 :)", text: $loginSignupStore.description, axis: .vertical)
+                .padding()
+                .shadow(radius: 2, y:1)
+                .padding(.bottom)
+                .disableAutocorrection(true)
+            
+            Spacer()
             
             Button {
                 

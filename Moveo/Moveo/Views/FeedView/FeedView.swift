@@ -49,12 +49,11 @@ struct FeedView: View {
                     ScrollView(showsIndicators: false, content: {
                         ForEach(postStore.posts) { post in
                             CardView(post: post)
-                                .cornerRadius(10)
+                                
                         }
-                        .shadow(radius: 5)
+                        
                     })
                 }
-                .padding(.horizontal, 15)
                 
             }
         }
@@ -63,32 +62,6 @@ struct FeedView: View {
         }
         .refreshable {
             postStore.fetchPosts()
-        }
-    }
-}
-
-struct CardView: View {
-    @EnvironmentObject var postStore: PostStore
-    var post: Post
-    
-    var body: some View {
-        ZStack {
-            VStack {
-                WebImage(url: URL(string: post.postImageUrl))
-                    .resizable()
-                    .aspectRatio(contentMode: .fill)
-                    .frame(width: 330, height: 370, alignment: .center)
-                    .clipped()
-                
-                ZStack {
-                    Text(post.bodyText)
-                        .zIndex(1)
-                    
-                    Rectangle()
-                        .frame(width: 330, height: 80)
-                        .foregroundColor(.white)
-                }
-            }
         }
     }
 }

@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-
+import SDWebImageSwiftUI
 // TODO: - 형태는 유지하되 전체적으로 데이터를 받아와서 보여줄 수 있도록 할 것
 struct ProfileView: View {
     
@@ -35,7 +35,7 @@ struct ProfileView: View {
                 
                 VStack {
                     HStack(spacing: 15) {
-                        Text("@moveo12_")
+                        Text(loginSignupStore.currentUserData?.nickName ?? "")
                             .font(.title2)
                             .bold()
                         
@@ -71,7 +71,7 @@ struct ProfileView: View {
                     ScrollView {
                         VStack {
                             HStack(spacing: 50) {
-                                Image("mainProfile")
+                                WebImage(url: URL(string: loginSignupStore.currentUserData?.profileImageUrl ?? ""))
                                     .resizable()
                                     .frame(width: 60, height: 60)
                                     .clipShape(Circle())
@@ -81,7 +81,7 @@ struct ProfileView: View {
                             }
                             .padding(10)
                             
-                            Text("하루도 빠짐없이 오운완!")
+                            Text(loginSignupStore.currentUserData?.description ?? "")
                                 .font(.system(size: 15, weight: .semibold))
                                 .frame(maxWidth: .infinity, alignment: .leading)
                                 .padding(.leading, 20)
@@ -89,14 +89,14 @@ struct ProfileView: View {
                             
                             ScrollView(.horizontal, showsIndicators: false) {
                                 HStack{
-                                    Image("profileView2")
-                                        .onTapGesture {
-                                            isSelected = 0
-                                        }
-                                    Image("profileView3")
-                                        .onTapGesture {
-                                            isSelected = 1
-                                        }
+                                    ForEach(loginSignupStore.currentUserData?.category ?? [], id: \.self) { category in
+                                        Text(category)
+                                            .padding()
+                                            .font(.system(size: 25))
+                                            .foregroundColor(.white)
+                                            .background { Color.mainColor }
+                                            .cornerRadius(50)
+                                    }
                                     Image(systemName: "plus.circle.fill")
                                         .foregroundColor(.gray)
                                         .opacity(0.5)
@@ -217,6 +217,9 @@ struct ProfileView: View {
                 }
             }
         }
+        .onAppear{
+            loginSignupStore.currentUserDataInput()
+        }
     }
 }
 
@@ -329,6 +332,7 @@ struct ViewHeightKey: PreferenceKey {
 struct ProfileView_Previews: PreviewProvider {
     static var previews: some View {
         ProfileView()
+            .environmentObject(LoginSignupStore())
     }
 }
 

@@ -14,19 +14,21 @@ extension Color{
 }
 
 struct ContentView: View {
-    @EnvironmentObject var viewStore: ViewStore
+    @EnvironmentObject var loginSignStore: LoginSignupStore
+    
     var body: some View {
-        if viewStore.currentLoginCheckViewChanger {
-            LodingAndLoginView()
-        } else {
-            ContainTabView()
-        }
+        // MARK: 현재 로그인 상태를 확인해서 로그인 상태면 메인뷰로 아니면 로그인뷰로 화면 출력
+            if loginSignStore.currentUser != nil {
+                ContainTabView()
+            } else {
+                LodingAndLoginView()
+            }
     }
 }
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
-            .environmentObject(ViewStore())
+            .environmentObject(LoginSignupStore())
     }
 }

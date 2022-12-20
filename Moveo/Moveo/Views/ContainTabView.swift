@@ -46,7 +46,5 @@ struct ContainTabView: View {
 struct ContainTabView_Previews: PreviewProvider {
     static var previews: some View {
         ContainTabView()
-            .environmentObject(ViewStore())
-            .environmentObject(SampleTask())
     }
 }

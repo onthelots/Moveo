@@ -29,7 +29,9 @@
 		52DAB118295033EB005937DB /* AddPostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52DAB117295033EB005937DB /* AddPostView.swift */; };
 		52DAB11A2950341F005937DB /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52DAB1192950341F005937DB /* ImagePicker.swift */; };
 		52DAB11F295044D1005937DB /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 52DAB11E295044D1005937DB /* SDWebImageSwiftUI */; };
-		52F42BF3294F3F7000F94AC1 /* ViewStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F42BF2294F3F7000F94AC1 /* ViewStore.swift */; };
+		52E9DE202951DB970093E4AE /* CommentStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52E9DE1F2951DB970093E4AE /* CommentStore.swift */; };
+		52E9DE222951DC030093E4AE /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52E9DE212951DC030093E4AE /* CardView.swift */; };
+		52E9DE242951DC290093E4AE /* CommentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52E9DE232951DC290093E4AE /* CommentView.swift */; };
 		52F42BF5294F40CB00F94AC1 /* LodingAndLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F42BF4294F40CB00F94AC1 /* LodingAndLoginView.swift */; };
 		52F42BF7294F7F2300F94AC1 /* ContainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F42BF6294F7F2300F94AC1 /* ContainTabView.swift */; };
 		F259966429505725004E5AD1 /* LoginSignupStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = F259966329505725004E5AD1 /* LoginSignupStore.swift */; };
@@ -65,7 +67,9 @@
 		52DAB11529502AD0005937DB /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
 		52DAB117295033EB005937DB /* AddPostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPostView.swift; sourceTree = "<group>"; };
 		52DAB1192950341F005937DB /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
-		52F42BF2294F3F7000F94AC1 /* ViewStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewStore.swift; sourceTree = "<group>"; };
+		52E9DE1F2951DB970093E4AE /* CommentStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentStore.swift; sourceTree = "<group>"; };
+		52E9DE212951DC030093E4AE /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
+		52E9DE232951DC290093E4AE /* CommentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentView.swift; sourceTree = "<group>"; };
 		52F42BF4294F40CB00F94AC1 /* LodingAndLoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LodingAndLoginView.swift; sourceTree = "<group>"; };
 		52F42BF6294F7F2300F94AC1 /* ContainTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainTabView.swift; sourceTree = "<group>"; };
 		F259966329505725004E5AD1 /* LoginSignupStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginSignupStore.swift; sourceTree = "<group>"; };
@@ -170,8 +174,8 @@
 				F259967C29505B0E004E5AD1 /* CalanderViewModel */,
 				52DAB10F2950287C005937DB /* PostStore.swift */,
 				52DAB1192950341F005937DB /* ImagePicker.swift */,
-				52F42BF2294F3F7000F94AC1 /* ViewStore.swift */,
 				F259966329505725004E5AD1 /* LoginSignupStore.swift */,
+				52E9DE1F2951DB970093E4AE /* CommentStore.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -233,6 +237,8 @@
 			isa = PBXGroup;
 			children = (
 				529C2F9C294DCB2200366BCB /* FeedView.swift */,
+				52E9DE212951DC030093E4AE /* CardView.swift */,
+				52E9DE232951DC290093E4AE /* CommentView.swift */,
 			);
 			path = FeedView;
 			sourceTree = "<group>";
@@ -349,12 +355,13 @@
 			files = (
 				529C2FA1294DD03600366BCB /* ProfileView.swift in Sources */,
 				529C2FA5294E0BCC00366BCB /* MainView.swift in Sources */,
-				52F42BF3294F3F7000F94AC1 /* ViewStore.swift in Sources */,
+				52E9DE202951DB970093E4AE /* CommentStore.swift in Sources */,
 				52DAB11A2950341F005937DB /* ImagePicker.swift in Sources */,
 				F259968029505E6D004E5AD1 /* User.swift in Sources */,
 				5280C39C294CCA55004D241C /* ContentView.swift in Sources */,
 				F259966429505725004E5AD1 /* LoginSignupStore.swift in Sources */,
 				52DAB112295028B0005937DB /* Post.swift in Sources */,
+				52E9DE222951DC030093E4AE /* CardView.swift in Sources */,
 				5280C3A8294CCA70004D241C /* LodingView.swift in Sources */,
 				F2E4CC5C2951430000D21D2A /* ProfileImageSetupView.swift in Sources */,
 				F259967129505AE2004E5AD1 /* DateValue.swift in Sources */,
@@ -371,6 +378,7 @@
 				F259967929505AFC004E5AD1 /* CustomDatePicker.swift in Sources */,
 				F259967B29505AFC004E5AD1 /* ScheduleToggle.swift in Sources */,
 				52F42BF5294F40CB00F94AC1 /* LodingAndLoginView.swift in Sources */,
+				52E9DE242951DC290093E4AE /* CommentView.swift in Sources */,
 				F259967E29505B0E004E5AD1 /* HomeViewModel.swift in Sources */,
 				5280C39A294CCA55004D241C /* MoveoApp.swift in Sources */,
 				F259967229505AE2004E5AD1 /* Task.swift in Sources */,

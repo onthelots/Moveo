@@ -8,8 +8,7 @@
 import SwiftUI
 
 struct LodingView: View {
-    @EnvironmentObject var viewStore: ViewStore
-    
+    @EnvironmentObject var loginSignStore: LoginSignupStore
     @State private var handScale: Bool = true
     
     @State private var firstStringX: Double = -73
@@ -108,7 +107,7 @@ struct LodingView: View {
                 }
             }
             DispatchQueue.main.asyncAfter(deadline: .now() + 4.7) {
-                viewStore.lodingViewChanger = false
+                loginSignStore.lodingViewChanger = false
             }
         }
         .padding(.horizontal, 20)
@@ -118,6 +117,6 @@ struct LodingView: View {
 struct LodingView_Previews: PreviewProvider {
     static var previews: some View {
         LodingView()
-            .environmentObject(ViewStore())
+            .environmentObject(LoginSignupStore())
     }
 }

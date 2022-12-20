@@ -14,15 +14,10 @@ struct User : Codable, Identifiable {
     var nickName : String
     var profileImageUrl : String
     var category : [String]
-//    var bookmark : [String]
+    var bookmark : [String]
+    var description : String
 }
 
-//struct Category : Codable, Identifiable {
-//    var id : String
-//    var uid : String
-//    var categoryName : [String]
-//}
-//
 struct Bookmark : Codable, Identifiable {
     var id : String
     var postUid : String

@@ -13,6 +13,10 @@ import SwiftUI
 
 // MARK: LoginSignupStore
 class LoginSignupStore: ObservableObject {
+    
+    // 로딩-로그인 뷰 체인저
+    @Published var lodingViewChanger: Bool = true
+    
     // 로그인
     @Published var email: String = ""
     @Published var password: String = ""
@@ -25,6 +29,8 @@ class LoginSignupStore: ObservableObject {
     @Published var signUpPwCheck: String = ""
     @Published var profileImageUrlString: String = "test"
     @Published var selectedCategories : [String] = []
+    @Published var bookmark : [String] = []
+    @Published var description : String = ""
     // 프로필
     @Published var profileImageUrl: UIImage?
     //    @Published var currentUserInfo: [MyUser] = []
@@ -38,8 +44,12 @@ class LoginSignupStore: ObservableObject {
     // User 배열
     @Published var users : [User] = []
     
+    // current user Data
+    @Published var currentUserData: User? = nil
+    
     init() {
         currentUser = Auth.auth().currentUser
+        print("현재 유저 uid \(currentUser?.uid ?? "")")
     }
     
     // 로그인
@@ -52,6 +62,7 @@ class LoginSignupStore: ObservableObject {
             print("Successfully logged in as user: \(result?.user.uid ?? "")")
             self.currentUser = result?.user
         }
+        self.fetchUser()
     }
     
     // 로그아웃
@@ -62,12 +73,6 @@ class LoginSignupStore: ObservableObject {
     
     // 회원가입
     func createNewAccount() {
-        // 프사 설정 해야만 회원가입 가능 코드
-        //        if image == nil {
-        //            loginstatusMessage = "You must select an avatar image"
-        //            return
-        //        }
-        
         Auth.auth().createUser(withEmail: signUpEmail, password: signUpPw) { result, error in
             if let error = error {
                 print("Failed to create user:", error)
@@ -106,7 +111,7 @@ class LoginSignupStore: ObservableObject {
                 
                 print(uid)
                 // model을 쓰면 쉽게 구조화할 수 있음
-                let userData = ["name" : self.name, "nickName" : self.nickName, "email" : self.signUpEmail, "id" : uid, "profileImageUrl": url.absoluteString, "category": self.selectedCategories] as [String : Any]
+                let userData = ["name" : self.name, "nickName" : self.nickName, "email" : self.signUpEmail, "id" : uid, "profileImageUrl": url.absoluteString, "category": self.selectedCategories, "bookmark" : self.bookmark, "description" : self.description] as [String : Any]
                 
                 Firestore.firestore().collection("users").document(uid).setData(userData as [String : Any]) { error in
                     if let error = error {
@@ -137,7 +142,9 @@ class LoginSignupStore: ObservableObject {
                         let email: String = docData["email"] as? String ?? ""
                         let profileImageUrl: String = docData["profileImageUrl"] as? String ?? ""
                         let category : [String] = docData["category"] as? [String] ?? []
-                        let user: User = User(id: id, email: email, name: name, nickName: nickName, profileImageUrl: profileImageUrl, category: category)
+                        let bookmark : [String] = docData["bookmark"] as? [String] ?? []
+                        let description : String = docData["description"] as? String ?? ""
+                        let user: User = User(id: id, email: email, name: name, nickName: nickName, profileImageUrl: profileImageUrl, category: category, bookmark: bookmark, description: description)
                         
                         self.users.append(user)
                     }
@@ -191,50 +198,71 @@ class LoginSignupStore: ObservableObject {
         
         self.fetchUser()
     }
-    //
-    //
-    //    func findPostNickname(selectedPost : Post) -> String {
-    //        let uid: String = selectedPost.currentUser
-    //
-    //        let myUser: MyUser = users.filter{ $0.id == uid }[0]
-    //
-    //        if myUser.nickName != "" {
-    //            return myUser.nickName
-    //        } else {
-    //            return "can't find nickname"
-    //        }
-    //    }
-    //
-    //    func findCommentNickname(comment : Comment) -> String {
-    //        let uid: String = comment.currentUser
-    //        let myUser: MyUser = users.filter{ $0.id == uid }[0]
-    //
-    //        if myUser.nickName != "" {
-    //            return myUser.nickName
-    //        } else {
-    //            return "can't find nickname"
-    //        }
-    //    }
-    //
-    //    func findPostProfileImageUrlString(selectedPost : Post) -> String {
-    //        let uid: String = selectedPost.currentUser
-    //        if !users.isEmpty {
-    //            let myUser: MyUser = users.filter{ $0.id == uid }[0]
-    //            return myUser.profileImageUrl
-    //        } else {
-    //            return ""
-    //        }
-    //
-    //    }
-    //
-    //    func findCommentProfileImageUrlString(comment : Comment) -> String {
-    //        let uid: String = comment.currentUser
-    //        if !users.isEmpty {
-    //            let myUser: MyUser = users.filter{ $0.id == uid }[0]
-    //            return myUser.profileImageUrl
-    //        } else {
-    //            return ""
-    //        }
-    //    }
+    
+    func currentUserDataInput() {
+        let uid: String = currentUser?.uid ?? ""
+
+        if !users.isEmpty {
+            let myUser: User = users.filter{ $0.id == uid }[0]
+            currentUserData = myUser
+        }
+    }
+    
+    func findPostNickname(selectedPost : Post) -> String {
+        let uid: String = selectedPost.writerUid
+        
+        let myUser: User = users.filter{ $0.id == uid }[0]
+        
+        if myUser.nickName != "" {
+            return myUser.nickName
+        } else {
+            return "can't find nickname"
+        }
+    }
+    
+    func findPostProfileImageUrlString(selectedPost : Post) -> String {
+        let uid: String = selectedPost.writerUid
+        if !users.isEmpty {
+            let myUser: User = users.filter{ $0.id == uid }[0]
+            return myUser.profileImageUrl
+        } else {
+            return ""
+        }
+        
+    }
+    
+    func findCommentNickname(comment : Comment) -> String {
+        let uid: String = comment.uid
+        let myUser: User = users.filter{ $0.id == uid }[0]
+        
+        if myUser.nickName != "" {
+            return myUser.nickName
+        } else {
+            return "can't find nickname"
+        }
+    }
+    
+    
+    
+    func findCommentProfileImageUrlString(comment : Comment) -> String {
+        let uid: String = comment.uid
+        if !users.isEmpty {
+            let myUser: User = users.filter{ $0.id == uid }[0]
+            return myUser.profileImageUrl
+        } else {
+            return ""
+        }
+    }
+    
+    func currentUserImageUrlString() -> String {
+        let uid: String = currentUser?.uid ?? ""
+        
+        if !users.isEmpty {
+            let myUser: User = users.filter{ $0.id == uid }[0]
+            return myUser.profileImageUrl
+        } else {
+            return ""
+        }
+    }
 }
 
