@@ -9,14 +9,14 @@ import SwiftUI
 
 struct LoginView: View {
     @EnvironmentObject var viewStore: ViewStore
-    
+    @State private var dismissedToRoot : Bool = false
     // TODO: - LoginStore 만들고 난 후 삭제할 변수들
     @State private var id: String = ""
     @State private var password: String = ""
     @State private var aniOpacity: CGFloat = 0
     
     var body: some View {
-        NavigationStack {
+        NavigationView {
             VStack {
                 Image("mainLogo")
                     .resizable()
@@ -61,11 +61,10 @@ struct LoginView: View {
                             .foregroundColor(.gray)
                         
                         // TODO: - 회원가입 뷰 만들면 destination 수정 필요
-                        NavigationLink(destination: SignupView()) {
+                        NavigationLink(destination: ProfileImageSetupView(dismissToRoot: $dismissedToRoot), isActive: self.$dismissedToRoot) {
                             Text("회원가입")
-                                .font(.callout)
-                                .foregroundColor(.blue)
                         }
+                        .isDetailLink(false)
                     }
                     .padding(.bottom, 10)
                 }
@@ -84,5 +83,6 @@ struct LoginView_Previews: PreviewProvider {
     static var previews: some View {
         LoginView()
             .environmentObject(ViewStore())
+            .environmentObject(LoginSignupStore())
     }
 }
