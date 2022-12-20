@@ -155,11 +155,11 @@
 		529C2F95294DCA0500366BCB /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				F259966E29505AE2004E5AD1 /* CalanderModel */,
 				52DAB111295028B0005937DB /* Post.swift */,
 				52DAB113295029C0005937DB /* Like.swift */,
 				52DAB11529502AD0005937DB /* Comment.swift */,
 				F259967F29505E6D004E5AD1 /* User.swift */,
+				F259966E29505AE2004E5AD1 /* CalanderModel */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -189,9 +189,9 @@
 			isa = PBXGroup;
 			children = (
 				529C2F97294DCA3E00366BCB /* LoginView.swift */,
-				F2E4CC5D2951430600D21D2A /* SignUpView.swift */,
 				F2E4CC5B2951430000D21D2A /* ProfileImageSetupView.swift */,
 				F2E4CC6529514C1700D21D2A /* CategoryView.swift */,
+				F2E4CC5D2951430600D21D2A /* SignUpView.swift */,
 			);
 			path = LoginView;
 			sourceTree = "<group>";

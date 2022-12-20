@@ -9,6 +9,7 @@ import SwiftUI
 
 struct CategoryView: View {
     @State var isSelected : [Bool] = [false, false, false, false, false]
+    @EnvironmentObject var userStore : LoginSignupStore
     @Binding var dismissToRoot: Bool
     var body: some View {
         
@@ -79,16 +80,41 @@ struct CategoryView: View {
                 Spacer()
                     .frame(height: 130)
                 
-                NavigationLink(destination: SignUpView(dissmissStart: self.$dismissToRoot)) {
-                    Text("회원가입")
-                }
-                .isDetailLink(false)
+                
+                    NavigationLink(destination: SignUpView(dissmissStart: $dismissToRoot)) {
+                        Text("회원가입")
+                    }
+                    .isDetailLink(false)
+                
+
                 
                 Spacer()
                     .frame(height: 70)
 
         }
-       
+            .onDisappear {
+                appendCategories(isSelected: isSelected)
+                print(userStore.selectedCategories)
+            }
+    }
+        
+    func appendCategories(isSelected : [Bool]) {
+        userStore.selectedCategories = []
+        if isSelected[0] == true {
+            userStore.selectedCategories.append("공부")
+        }
+        if isSelected[1] == true {
+            userStore.selectedCategories.append("운동")
+        }
+        if isSelected[2] == true {
+            userStore.selectedCategories.append("예술")
+        }
+        if isSelected[3] == true {
+            userStore.selectedCategories.append("멘탈케어")
+        }
+        if isSelected[4] == true {
+            userStore.selectedCategories.append("자기계발")
+        }
     }
 }
 

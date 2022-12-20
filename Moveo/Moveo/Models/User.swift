@@ -9,13 +9,20 @@ import Foundation
 
 struct User : Codable, Identifiable {
     var id : String
-    var uid : String
     var email : String
     var name : String
     var nickName : String
-    var category : String
+    var profileImageUrl : String
+    var category : [String]
+//    var bookmark : [String]
 }
 
+//struct Category : Codable, Identifiable {
+//    var id : String
+//    var uid : String
+//    var categoryName : [String]
+//}
+//
 struct Bookmark : Codable, Identifiable {
     var id : String
     var postUid : String
@@ -24,9 +31,13 @@ struct Bookmark : Codable, Identifiable {
 struct Follower : Codable, Identifiable {
     var id : String
     var followerUid : String
+    var nickName : String
+    var imageUrl : String
 }
 
 struct Following : Codable, Identifiable {
     var id : String
     var followingUid : String
+    var nickName : String
+    var imageUrl : String
 }
