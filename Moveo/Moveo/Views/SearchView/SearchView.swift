@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct SearchView: View {
+    @EnvironmentObject var postStore: PostStore
     @State private var cardScale: Bool = true
     @State private var cardScale1: Bool = true
     var columns: [GridItem] = Array(repeating: .init(.flexible()), count: 2)
@@ -71,59 +72,24 @@ struct SearchView: View {
                         .padding(.vertical, 10)
                         
                         Divider()
-                        
-                        
-                        
+ 
                         // TODO: - 추후 피드들 넣을 스크롤뷰, 현재 카드형태로 넣을 예정
-                        LazyVGrid(columns: columns, spacing: 20) {
-                            RoundedRectangle(cornerRadius: 10)
-                                .frame(width: 160, height: 240)
-                                .foregroundColor(.mainColor)
-                                .scaleEffect(cardScale ? 1 : 2.1, anchor: .topLeading)
-                                .animation(.linear(duration: 0.2), value: cardScale)
-                                .shadow(radius: 3, x: 3, y: 3)
-                                .zIndex(cardScale ? 1 : 2)
-                                .onTapGesture {
-                                    cardScale.toggle()
-                                }
-                            
-                            RoundedRectangle(cornerRadius: 10)
-                                .frame(width: 160, height: 240)
-                                .foregroundColor(.mainColor)
-                                .scaleEffect(cardScale1 ? 1 : 2.1, anchor: .topTrailing)
-                                .animation(.linear(duration: 0.2), value: cardScale1)
-                                .shadow(radius: 3, x: 3, y: 3)
-                                .zIndex(cardScale1 ? 1 : 2)
-                                .onTapGesture {
-                                    cardScale1.toggle()
-                                }
-                            
-                            
-                            RoundedRectangle(cornerRadius: 10)
-                                .frame(width: 160, height: 240)
-                                .foregroundColor(.mainColor)
-                                .shadow(radius: 3, x: 3, y: 3)
-                            
-                            RoundedRectangle(cornerRadius: 10)
-                                .frame(width: 160, height: 240)
-                                .foregroundColor(.mainColor)
-                                .shadow(radius: 3, x: 3, y: 3)
-                            
-                            RoundedRectangle(cornerRadius: 10)
-                                .frame(width: 160, height: 240)
-                                .foregroundColor(.mainColor)
-                                .shadow(radius: 3, x: 3, y: 3)
-                            
-                            RoundedRectangle(cornerRadius: 10)
-                                .frame(width: 160, height: 240)
-                                .foregroundColor(.mainColor)
-                                .shadow(radius: 3, x: 3, y: 3)
+                        LazyVGrid(columns: columns, spacing: 10) {
+                            ForEach(postStore.posts) { post in
+                                SearchCardView(post: post)
+                            }
                         }
                     })
                 }
                 .padding(.horizontal, 20)
                 
             }
+        }
+        .onAppear {
+            postStore.fetchPosts()
+        }
+        .refreshable {
+            postStore.fetchPosts()
         }
     }
 }
@@ -132,5 +98,6 @@ struct SearchView: View {
 struct SearchView_Previews: PreviewProvider {
     static var previews: some View {
         SearchView()
+            .environmentObject(PostStore())
     }
 }

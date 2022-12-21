@@ -264,5 +264,19 @@ class LoginSignupStore: ObservableObject {
             return ""
         }
     }
+    
+    // 북마크한 게시물들을 UserStore에 올리기, 삭제하기
+    func uploadBookmarkedPost(selectedPostId: String) {
+        
+        let user = self.currentUserData
+        let userData = ["id" : user?.id ?? "", "email" : user?.email ?? "", "name" : user?.name ?? "", "nickName" : user?.nickName ?? "", "profileImageUrl" : user?.profileImageUrl ?? "", "category" : user?.category ?? [], "bookmark" : user?.bookmark ?? [], "description" : user?.description ?? "" ] as [String : Any]
+        Firestore.firestore().collection("users").document(user?.id ?? "").setData(userData as [String : Any]) { error in
+            if let error = error {
+                print(error)
+                return
+            }
+        }
+        fetchUser()
+    }
 }
 

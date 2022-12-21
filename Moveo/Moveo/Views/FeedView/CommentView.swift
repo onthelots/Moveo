@@ -12,15 +12,15 @@ struct CommentView: View {
     @EnvironmentObject var commentStore: CommentStore
     @EnvironmentObject var userStore: LoginSignupStore
     
-    @State var selectedPost: Post
+    @State var post: Post
     @State private var showModal: Bool = false
     
     var body: some View {
         ZStack {
             VStack(alignment: .leading) {
                 HStack {
-                    if userStore.findPostProfileImageUrlString(selectedPost: selectedPost) != "" {
-                        WebImage(url: URL(string: userStore.findPostProfileImageUrlString(selectedPost: selectedPost)))
+                    if post.profileImage != "" {
+                        WebImage(url: URL(string: post.profileImage))
                             .resizable()
                             .cornerRadius(15)
                             .frame(width: 30, height: 30)
@@ -34,11 +34,13 @@ struct CommentView: View {
 
                     VStack(alignment: .leading) {
                         HStack {
-                            Text(userStore.findPostNickname(selectedPost: selectedPost))
+                            Text(post.nickName)
+                                .bold()
                                 .padding(.trailing, 5)
-                            Text(selectedPost.bodyText)
+                            Text(post.bodyText)
                         }
-                        Text(selectedPost.postDate)
+                        
+                        Text(post.postDate)
                     }
                 }
                 .padding(.horizontal)
@@ -47,7 +49,7 @@ struct CommentView: View {
                 
                 ForEach(commentStore.comments) { comment in
                     CommentCell(comment: comment)
-                        .padding(.bottom)
+                        .padding(.bottom, 5)
                 }
                 
                 Spacer()
@@ -57,9 +59,11 @@ struct CommentView: View {
             Rectangle()
                 .fill(.white)
                 .ignoresSafeArea()
+                .zIndex(0)
         }
         .onAppear {
-            commentStore.postId = selectedPost.id
+            commentStore.postId = post.id
+            userStore.currentUserDataInput()
             commentStore.fetchComments()
         }
         .sheet(isPresented: $showModal) {
@@ -77,23 +81,21 @@ struct CommentView: View {
 
 struct CommentView_Previews: PreviewProvider {
     static var previews: some View {
-        CommentView(selectedPost: PostStore().posts[0])
+        CommentView(post: PostStore().posts[0])
             .environmentObject(LoginSignupStore())
             .environmentObject(CommentStore())
     }
 }
 
 struct CommentCell: View {
-    @EnvironmentObject var userStore: LoginSignupStore
-    @State private var userImage: UIImage? = nil
     @State var comment: Comment
     
     var body: some View {
         VStack(alignment: .leading) {
             HStack(alignment: .center) {
                 VStack {
-                    if userStore.findCommentProfileImageUrlString(comment: comment) != "" {
-                        WebImage(url: URL(string: userStore.findCommentProfileImageUrlString(comment: comment)))
+                    if comment.profileImage != "" {
+                        WebImage(url: URL(string: comment.profileImage))
                             .resizable()
                             .cornerRadius(15)
                             .frame(width: 30, height: 30)
@@ -108,9 +110,11 @@ struct CommentCell: View {
                 
                 VStack(alignment: .leading) {
                     HStack {
-                        Text(userStore.findCommentNickname(comment: comment))
+                        Text(comment.nickName)
+                            .bold()
                         Text(comment.commentText)
                     }
+                    
                     Text(comment.commentDate)
                 }
                 Spacer()
@@ -125,6 +129,7 @@ struct AddCommentModalView: View {
     @Environment(\.dismiss) private var dismiss
     @EnvironmentObject var commentStore: CommentStore
     @EnvironmentObject var userStore: LoginSignupStore
+    
     @State private var commentText: String = ""
     
     var body: some View {
@@ -135,8 +140,8 @@ struct AddCommentModalView: View {
                 .padding(.vertical, 5)
             
             HStack {
-                if userStore.currentUserImageUrlString() != "" {
-                    WebImage(url: URL(string: userStore.currentUserImageUrlString()))
+                if userStore.currentUserData?.profileImageUrl != "" {
+                    WebImage(url: URL(string: userStore.currentUserData?.profileImageUrl ?? ""))
                         .resizable()
                         .cornerRadius(15)
                         .frame(width: 30, height: 30)
@@ -169,5 +174,8 @@ struct AddCommentModalView: View {
             Spacer()
         }
         .padding(.top, 5)
+        .onDisappear{
+            commentStore.fetchComments()
+        }
     }
 }

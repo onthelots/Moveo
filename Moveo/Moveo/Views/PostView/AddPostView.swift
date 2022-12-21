@@ -14,6 +14,7 @@ struct AddPostView: View {
     // dismiss를 사용하기 위해 필요
     @Environment(\.dismiss) private var dismiss
     @EnvironmentObject var postStore: PostStore
+    @EnvironmentObject var loginSignupStore: LoginSignupStore
     
     // imagePicker를 사용하기 위해 필요
     @State private var imagePickerSelected: Bool = false
@@ -78,6 +79,8 @@ struct AddPostView: View {
             Spacer()
             
             Button {
+                postStore.nickName = loginSignupStore.currentUserData?.nickName ?? ""
+                postStore.profileImage = loginSignupStore.currentUserData?.profileImageUrl ?? ""
                 postStore.postCategory = selectedCategory
                 postStore.ImageToStorage()
                 dismiss()
@@ -101,11 +104,16 @@ struct AddPostView: View {
         .fullScreenCover(isPresented: $imagePickerSelected) {
             ImagePicker(image: $postStore.postImage)
         }
+        .onAppear{
+            loginSignupStore.currentUserDataInput()
+        }
     }
 }
 
 struct AddPostView_Previews: PreviewProvider {
     static var previews: some View {
-        AddPostView().environmentObject(PostStore())
+        AddPostView()
+            .environmentObject(PostStore())
+            .environmentObject(LoginSignupStore())
     }
 }

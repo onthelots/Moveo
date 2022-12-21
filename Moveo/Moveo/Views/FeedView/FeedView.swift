@@ -49,7 +49,6 @@ struct FeedView: View {
                     ScrollView(showsIndicators: false, content: {
                         ForEach(postStore.posts) { post in
                             CardView(post: post)
-                                
                         }
                         
                     })

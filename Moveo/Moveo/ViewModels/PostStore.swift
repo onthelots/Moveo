@@ -70,7 +70,7 @@ class PostStore: ObservableObject {
          
         
         // model을 쓰면 쉽게 구조화할 수 있음
-        let postData = ["id": uid, "postImageUrl": imageProfileUrl.absoluteString, "bodyText" : bodyText, "writerUid": Auth.auth().currentUser?.uid, "date": dateFormatter.string(from: Date.now), "nickName": nickName, "profileImage": profileImage, "postCategory": postCategory]
+        let postData = ["id": uid, "postImageUrl": imageProfileUrl.absoluteString, "bodyText" : bodyText, "writerUid": Auth.auth().currentUser?.uid, "postDate": dateFormatter.string(from: Date.now), "nickName": nickName, "profileImage": profileImage, "postCategory": postCategory]
                             
         Firestore.firestore().collection("post").document(uid).setData(postData as [String : Any]) { error in
             if let error = error {
@@ -89,7 +89,7 @@ class PostStore: ObservableObject {
     // MARK: - Post들을 store에서 받아와서 뷰에 새로 그려주기 위해 Posts를 패치하는 함수
     func fetchPosts() {
         Firestore.firestore().collection("post")
-            .order(by: "date", descending: true)
+            .order(by: "postDate", descending: true)
             .getDocuments { (snapshot, error) in
                 self.posts.removeAll()
                 
@@ -113,5 +113,6 @@ class PostStore: ObservableObject {
                     }
                 }
             }
+        print("fetch")
     }
 }

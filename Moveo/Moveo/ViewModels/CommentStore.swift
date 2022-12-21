@@ -6,6 +6,7 @@ import FirebaseAuth
 
 class CommentStore: ObservableObject {
     @Published var comments: [Comment] = []
+    
     @Published var commentText: String = ""
     
     let dateFormatter: DateFormatter = {
@@ -41,11 +42,12 @@ class CommentStore: ObservableObject {
                     }
                 }
             }
+        print("success fetchComments")
     }
     
     func addComment(currentNickName: String, currentProfileImage: String) {
         let id: String = UUID().uuidString
-        let comment = ["id": id, "uid": Auth.auth().currentUser?.uid, "commentText": commentText, "date": dateFormatter.string(from: Date.now)]
+        let comment = ["id": id, "uid": Auth.auth().currentUser?.uid, "nickName": currentNickName, "profileImage": currentProfileImage, "commentText": commentText, "commentDate": dateFormatter.string(from: Date.now)]
         
         Firestore.firestore().collection("post").document(postId ?? "")
             .collection("Comments")

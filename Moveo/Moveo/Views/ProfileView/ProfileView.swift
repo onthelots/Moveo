@@ -2,7 +2,7 @@
 //  ProfileView.swift
 //  Moveo
 //
-//  Created by 진준호 on 2022/11/28.
+//  Created by 이종현 on 2022/12/21.
 //
 
 import SwiftUI
@@ -11,6 +11,7 @@ import SDWebImageSwiftUI
 struct ProfileView: View {
     
     @EnvironmentObject var loginSignupStore: LoginSignupStore
+    @EnvironmentObject var postStore : PostStore
     
     @State var isExpanded = false
     @State var subviewHeight : CGFloat = 0
@@ -26,6 +27,7 @@ struct ProfileView: View {
     @State private var isSelectedMenu: Bool = false
     
     var columns : [GridItem] = Array(repeating: GridItem(.flexible(), spacing: nil, alignment: nil), count: 2)
+    @State var bookMarkedPosts : [Post] = []
     
     var body: some View {
         NavigationStack {
@@ -164,31 +166,13 @@ struct ProfileView: View {
                                 if myToggle {
                                     if isSelected == 0 {
                                         LazyVGrid(columns: columns) {
-                                            MyPost(imageName: "profileView4")
-                                            MyPost(imageName: "profileView5")
-                                            MyPost(imageName: "profileView6")
-                                            MyPost(imageName: "profileView7")
-                                            MyPost(imageName: "profileView8")
-                                            MyPost(imageName: "profileView4")
-                                            MyPost(imageName: "profileView5")
-                                            MyPost(imageName: "profileView6")
-                                            MyPost(imageName: "profileView7")
-                                            MyPost(imageName: "profileView8")
+                                            //
                                         }
                                         .padding(.leading, 20)
                                         .padding(.trailing, 20)
                                     } else {
                                         LazyVGrid(columns: columns) {
-                                            MyPost(imageName: "studyGrid1")
-                                            MyPost(imageName: "studyGrid2")
-                                            MyPost(imageName: "studyGrid3")
-                                            MyPost(imageName: "studyGrid4")
-                                            MyPost(imageName: "studyGrid5")
-                                            MyPost(imageName: "studyGrid6")
-                                            MyPost(imageName: "studyGrid7")
-                                            MyPost(imageName: "studyGrid8")
-                                            MyPost(imageName: "studyGrid9")
-                                            MyPost(imageName: "studyGrid10")
+                                            //
                                         }
                                         .padding(.leading, 20)
                                         .padding(.trailing, 20)
@@ -197,16 +181,9 @@ struct ProfileView: View {
                                     
                                 } else {
                                     LazyVGrid(columns: columns) {
-                                        MyPost(imageName: "profileView8")
-                                        MyPost(imageName: "profileView7")
-                                        MyPost(imageName: "profileView6")
-                                        MyPost(imageName: "profileView5")
-                                        MyPost(imageName: "profileView4")
-                                        MyPost(imageName: "profileView8")
-                                        MyPost(imageName: "profileView7")
-                                        MyPost(imageName: "profileView6")
-                                        MyPost(imageName: "profileView5")
-                                        MyPost(imageName: "profileView4")
+                                        ForEach(bookMarkedPosts) { post in
+                                            MyPost(post: post)
+                                        }
                                     }
                                     .padding(.leading, 20)
                                     .padding(.trailing, 20)
@@ -219,7 +196,22 @@ struct ProfileView: View {
         }
         .onAppear{
             loginSignupStore.currentUserDataInput()
+            postStore.fetchPosts()
+            makeBookMarkedPosts()
         }
+    }
+    
+    // 위 bookMarkedPosts 배열에 북마크된 포스트들만 담아주는 배열
+    func makeBookMarkedPosts() {
+        self.bookMarkedPosts = []
+        
+        for post in postStore.posts {
+            if loginSignupStore.currentUserData!.bookmark.contains(post.id) {
+                bookMarkedPosts.append(post)
+            }
+        }
+        print("loginSignupStore.bookmark : \(loginSignupStore.currentUserData!.bookmark)")
+        print("bookMarkedPosts : \(bookMarkedPosts)")
     }
 }
 
@@ -311,11 +303,9 @@ struct Motivators : View {
 }
 
 struct MyPost : View {
-    var imageName : String
-    
+    var post : Post
     var body: some View {
-        Image(imageName)
-            .resizable()
+        WebImage(url: URL(string: post.postImageUrl))         .resizable()
             .frame(width: 173, height: 173)
             .scaledToFit()
             .cornerRadius(10)
@@ -333,7 +323,6 @@ struct ProfileView_Previews: PreviewProvider {
     static var previews: some View {
         ProfileView()
             .environmentObject(LoginSignupStore())
+            .environmentObject(PostStore())
     }
 }
-
-
