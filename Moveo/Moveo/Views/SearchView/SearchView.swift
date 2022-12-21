@@ -13,7 +13,13 @@ struct SearchView: View {
     @State private var cardScale1: Bool = true
     var columns: [GridItem] = Array(repeating: .init(.flexible()), count: 2)
     
-    @State private var searchText: String = "오운완"
+    @State private var searchText: String = ""
+    
+    // MARK: 현재 카테고리 이름
+    @State private var currentCategory: String = "전체"
+    
+    // MARK: sheet toggle
+    @State private var showSheet: Bool = false
     
     var body: some View {
         NavigationStack {
@@ -27,46 +33,82 @@ struct SearchView: View {
                         .fill(Color.backgroundColor)
                         .frame(height: 1)
                     
+                    // MARK: - 검색창
+                    Label {
+                        TextField("Search...", text: $searchText)
+                            .autocapitalization(.none)
+                            .autocorrectionDisabled()
+                    } icon : {
+                        Image(systemName: "magnifyingglass")
+                            .font(.callout)
+                            .fontWeight(.light)
+                            .padding(.leading, 5)
+                    }
+                    .frame(width: 345, height: 40)
+                    .background(.gray)
+                    .opacity(0.3)
+                    .cornerRadius(10)
+                    
                     ScrollView(showsIndicators: false, content: {
-                        // MARK: - 검색창
-                        VStack {
-                            VStack {
-                                Label {
-                                    TextField("Search...", text: $searchText)
-                                } icon : {
-                                    Image(systemName: "magnifyingglass")
-                                        .font(.callout)
-                                        .fontWeight(.light)
-                                        .padding(.leading, 5)
-                                }
-                                .frame(width: 345, height: 40)
-                                .background(.gray)
-                                .opacity(0.3)
-                                .cornerRadius(10)
-                            }
-                        }
+
                         // MARK: - 카테고리
                         ScrollView(.horizontal, showsIndicators: false) {
                             HStack(spacing: 20) {
-                                Image("searchCategory1")
-                                    .resizable()
-                                    .scaledToFit()
-                                    .frame(width: 50)
                                 
-                                Image("searchCategory2")
-                                    .resizable()
-                                    .scaledToFit()
-                                    .frame(width: 50)
+                                Button {
+                                    currentCategory = "전체"
+                                } label: {
+                                    Image(systemName: "list.bullet")
+                                        .resizable()
+                                        .scaledToFit()
+                                        .frame(width: 50)
+                                }
                                 
-                                Image("searchCategory3")
-                                    .resizable()
-                                    .scaledToFit()
-                                    .frame(width: 50)
+                                Button {
+                                    currentCategory = "공부"
+                                } label: {
+                                    Image("searchCategory2")
+                                        .resizable()
+                                        .scaledToFit()
+                                        .frame(width: 50)
+                                }
                                 
-                                Image("searchCategory4")
-                                    .resizable()
-                                    .scaledToFit()
-                                    .frame(width: 50)
+                                Button {
+                                    currentCategory = "운동"
+                                } label: {
+                                    Image("searchCategory1")
+                                        .resizable()
+                                        .scaledToFit()
+                                        .frame(width: 50)
+                                }
+                                
+                                Button {
+                                    currentCategory = "예술"
+                                } label: {
+                                    Image("searchCategory3")
+                                        .resizable()
+                                        .scaledToFit()
+                                        .frame(width: 50)
+                                }
+                                
+                                Button {
+                                    currentCategory = "멘탈케어"
+                                } label: {
+                                    Image(systemName: "brain.head.profile")
+                                        .resizable()
+                                        .scaledToFit()
+                                        .frame(width: 50)
+                                }
+                                
+                                Button {
+                                    currentCategory = "자기계발"
+                                } label: {
+                                    Image(systemName: "studentdesk")
+                                        .resizable()
+                                        .scaledToFit()
+                                        .frame(width: 50)
+                                }
+                                
                             }
                         }
                         .padding(.vertical, 10)
@@ -74,9 +116,31 @@ struct SearchView: View {
                         Divider()
  
                         // TODO: - 추후 피드들 넣을 스크롤뷰, 현재 카드형태로 넣을 예정
-                        LazyVGrid(columns: columns, spacing: 10) {
-                            ForEach(postStore.posts) { post in
-                                SearchCardView(post: post)
+                        VStack {
+                            LazyVGrid(columns: columns, spacing: 10) {
+                                ForEach(postStore.posts) { post in
+                                    
+                                    // MARK: 카테고리별로 view 바뀜
+                                    if (post.postCategory == currentCategory) {
+                                        Button {
+                                            showSheet.toggle()
+                                        } label: {
+                                            SearchCardView(post: post, searchText: searchText)
+                                        }
+                                        .sheet(isPresented: $showSheet) {
+                                            SearchCardDetailView(selectedCard: post)
+                                        }
+                                    } else if (currentCategory == "전체") {
+                                        Button {
+                                            showSheet.toggle()
+                                        } label: {
+                                            SearchCardView(post: post, searchText: searchText)
+                                        }
+                                        .sheet(isPresented: $showSheet) {
+                                            SearchCardDetailView(selectedCard: post)
+                                        }
+                                    }
+                                }
                             }
                         }
                     })
@@ -87,9 +151,11 @@ struct SearchView: View {
         }
         .onAppear {
             postStore.fetchPosts()
+//            postStore.getUsersNickName()
         }
         .refreshable {
             postStore.fetchPosts()
+//            postStore.getUsersNickName()
         }
     }
 }

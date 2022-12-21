@@ -10,6 +10,8 @@ import SDWebImageSwiftUI
 
 struct FeedView: View {
     @EnvironmentObject var postStore: PostStore
+    @EnvironmentObject var likeStore: LikeStore
+    
     @State private var cardScale: Bool = true
     @State private var cardScale1: Bool = true
     @State private var cardWidth: CGFloat = 160
@@ -49,6 +51,9 @@ struct FeedView: View {
                     ScrollView(showsIndicators: false, content: {
                         ForEach(postStore.posts) { post in
                             CardView(post: post)
+                                .onAppear{
+                                    likeStore.fetchLikes(post: post)
+                                }
                         }
                         
                     })
@@ -69,5 +74,6 @@ struct FeedView_Previews: PreviewProvider {
     static var previews: some View {
         FeedView()
             .environmentObject(PostStore())
+            .environmentObject(LikeStore())
     }
 }

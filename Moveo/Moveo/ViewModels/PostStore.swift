@@ -64,14 +64,14 @@ class PostStore: ObservableObject {
         let dateFormatter: DateFormatter = {
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "YYYY-MM-dd HH:mm:ss"
-
+            
             return dateFormatter
         }()
-         
+        
         
         // model을 쓰면 쉽게 구조화할 수 있음
         let postData = ["id": uid, "postImageUrl": imageProfileUrl.absoluteString, "bodyText" : bodyText, "writerUid": Auth.auth().currentUser?.uid, "postDate": dateFormatter.string(from: Date.now), "nickName": nickName, "profileImage": profileImage, "postCategory": postCategory]
-                            
+        
         Firestore.firestore().collection("post").document(uid).setData(postData as [String : Any]) { error in
             if let error = error {
                 print(error)
@@ -114,5 +114,67 @@ class PostStore: ObservableObject {
                 }
             }
         print("fetch")
+    }
+    
+    // MARK: - post를 database에 업데이트하는 함수
+    // 이미 존재하는 게시물 uid값을 확인해서 store에 업데이트 함
+    func updatePost (imageProfileUrl: URL, uid: String){
+        let uid = uid
+        
+        // 날짜를 원하는 형식으로 변환 - 우리는 데이터순으로 정렬을 해줄거여서 초단위까지 필요하기 때문에 이렇게 형식을 변환하였음
+        let dateFormatter: DateFormatter = {
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "YYYY-MM-dd HH:mm:ss"
+            
+            return dateFormatter
+        }()
+        
+        
+        // model을 쓰면 쉽게 구조화할 수 있음
+        let postData = ["id": uid, "postImageUrl": imageProfileUrl.absoluteString, "bodyText" : bodyText, "writerUid": Auth.auth().currentUser?.uid, "postDate": dateFormatter.string(from: Date.now), "nickName": nickName, "profileImage": profileImage, "postCategory": postCategory]
+        
+        Firestore.firestore().collection("post").document(uid).setData(postData as [String : Any]) { error in
+            if let error = error {
+                print(error)
+                return
+            }
+            print("Post to Store success")
+        }
+        
+        fetchPosts()
+        
+        bodyText = ""
+        postImage = nil
+    }
+    
+    // MARK: - 사진을 Storage에 담아주고 거기서 url값을 추출해서 업데이트까지 완료하는 함수
+    func ImageToUpdate(post: Post) {
+        let uid = post.id
+        let ref = Storage.storage().reference(withPath: uid)
+        
+        guard let imageData = postImage?.jpegData(compressionQuality: 0.5) else {
+            return
+        }
+        
+        // Storage에 image를 담아줌
+        ref.putData(imageData) { metadata, error in
+            if let error = error {
+                print("\(error)")
+                return
+            }
+            
+            // Storage에서 image의 url값을 추출해줌
+            ref.downloadURL() { url, error in
+                if let error = error {
+                    print(error)
+                    return
+                }
+                print(url?.absoluteString ?? "망함")
+                
+                guard let url = url else { return }
+                
+                self.updatePost(imageProfileUrl: url, uid: uid)
+            }
+        }
     }
 }

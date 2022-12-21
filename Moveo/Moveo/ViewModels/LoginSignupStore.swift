@@ -47,6 +47,9 @@ class LoginSignupStore: ObservableObject {
     // current user Data
     @Published var currentUserData: User? = nil
     
+    // MARK: - 21일 오전 10시 40분 새로 추가된 변수 / post를 작성한 유저의 정보를 받아오기 위한 변수
+    @Published var postUserData: User? = nil
+    
     init() {
         currentUser = Auth.auth().currentUser
         print("현재 유저 uid \(currentUser?.uid ?? "")")
@@ -277,6 +280,16 @@ class LoginSignupStore: ObservableObject {
             }
         }
         fetchUser()
+    }
+    
+    // MARK: - 21일 오전 10시 40분 새로 추가된 함수 / post를 작성한 유저의 데이터를 받아오는 함수
+    func postWriterUserDataInput(post: Post) {
+        let writerUid = post.writerUid
+        
+        if !users.isEmpty {
+            let otherUser: User = users.filter{ $0.id == writerUid }[0]
+            self.postUserData = otherUser
+        }
     }
 }
 

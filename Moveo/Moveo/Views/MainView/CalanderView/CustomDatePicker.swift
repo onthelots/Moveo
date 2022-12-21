@@ -106,7 +106,7 @@ struct CustomDatePicker: View {
                     // schedule toggle 카드
                     ForEach(task, id: \.id) { t in
                         ForEach(t.task) { j in
-                            HStack {    
+                            HStack {
                                 ScheduleToggle(time: t.taskTime, title: j.title )
                                 
                             }

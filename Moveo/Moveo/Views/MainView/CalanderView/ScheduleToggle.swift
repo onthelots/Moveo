@@ -14,6 +14,10 @@ struct ScheduleToggle: View {
     @ObservedObject private var vm: Schedule = Schedule()
     @EnvironmentObject var sampleTasks: SampleTask
     
+    @EnvironmentObject var inManager: NotificationManager
+    
+    @State private var scheduleDate = Date()
+    
     @State var time: Date
     @State var title: String
     
@@ -30,7 +34,7 @@ struct ScheduleToggle: View {
                         Text(title)
                             .font(.title2.bold())
 
-                        Text("\(vm.schedulesFinished ? "완료" : "진행중")")
+                        Text("\(vm.schedulesFinished ? "진행중" : "대기")")
 
                     }
                 }
@@ -66,5 +70,6 @@ struct ScheduleToggle_Previews: PreviewProvider {
     static var previews: some View {
         ScheduleToggle(time: Date.now, title: "책 보기")
             .environmentObject(SampleTask())
+            .environmentObject(NotificationManager())
     }
 }

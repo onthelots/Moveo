@@ -7,6 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		522D216E29529A1200744207 /* OtherPersonProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 522D216D29529A1200744207 /* OtherPersonProfileView.swift */; };
+		522D21702952A92800744207 /* LikeStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 522D216F2952A92800744207 /* LikeStore.swift */; };
+		522D21722952E90A00744207 /* SearchCardDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 522D21712952E90A00744207 /* SearchCardDetailView.swift */; };
+		522D21742952EAD600744207 /* EditPostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 522D21732952EAD600744207 /* EditPostView.swift */; };
+		522D21762952EC1300744207 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 522D21752952EC1300744207 /* NotificationManager.swift */; };
+		522D21782952EC5000744207 /* LocalNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 522D21772952EC5000744207 /* LocalNotification.swift */; };
+		522D217A2952F0AA00744207 /* FollowStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 522D21792952F0AA00744207 /* FollowStore.swift */; };
 		5280C39A294CCA55004D241C /* MoveoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5280C399294CCA55004D241C /* MoveoApp.swift */; };
 		5280C39C294CCA55004D241C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5280C39B294CCA55004D241C /* ContentView.swift */; };
 		5280C39E294CCA56004D241C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5280C39D294CCA56004D241C /* Assets.xcassets */; };
@@ -50,6 +57,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		522D216D29529A1200744207 /* OtherPersonProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherPersonProfileView.swift; sourceTree = "<group>"; };
+		522D216F2952A92800744207 /* LikeStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeStore.swift; sourceTree = "<group>"; };
+		522D21712952E90A00744207 /* SearchCardDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCardDetailView.swift; sourceTree = "<group>"; };
+		522D21732952EAD600744207 /* EditPostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPostView.swift; sourceTree = "<group>"; };
+		522D21752952EC1300744207 /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
+		522D21772952EC5000744207 /* LocalNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalNotification.swift; sourceTree = "<group>"; };
+		522D21792952F0AA00744207 /* FollowStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowStore.swift; sourceTree = "<group>"; };
 		5280C396294CCA55004D241C /* Moveo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Moveo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5280C399294CCA55004D241C /* MoveoApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoveoApp.swift; sourceTree = "<group>"; };
 		5280C39B294CCA55004D241C /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -178,6 +192,8 @@
 				52DAB1192950341F005937DB /* ImagePicker.swift */,
 				F259966329505725004E5AD1 /* LoginSignupStore.swift */,
 				52E9DE1F2951DB970093E4AE /* CommentStore.swift */,
+				522D216F2952A92800744207 /* LikeStore.swift */,
+				522D21792952F0AA00744207 /* FollowStore.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -206,6 +222,7 @@
 			isa = PBXGroup;
 			children = (
 				529C2FA0294DD03600366BCB /* ProfileView.swift */,
+				522D216D29529A1200744207 /* OtherPersonProfileView.swift */,
 			);
 			path = ProfileView;
 			sourceTree = "<group>";
@@ -214,6 +231,7 @@
 			isa = PBXGroup;
 			children = (
 				52DAB117295033EB005937DB /* AddPostView.swift */,
+				522D21732952EAD600744207 /* EditPostView.swift */,
 			);
 			path = PostView;
 			sourceTree = "<group>";
@@ -223,6 +241,7 @@
 			children = (
 				529C2F9E294DD02A00366BCB /* SearchView.swift */,
 				52E9DE26295202180093E4AE /* SearchCardView.swift */,
+				522D21712952E90A00744207 /* SearchCardDetailView.swift */,
 			);
 			path = SearchView;
 			sourceTree = "<group>";
@@ -251,6 +270,7 @@
 			children = (
 				F259966F29505AE2004E5AD1 /* DateValue.swift */,
 				F259967029505AE2004E5AD1 /* Task.swift */,
+				522D21772952EC5000744207 /* LocalNotification.swift */,
 			);
 			path = CalanderModel;
 			sourceTree = "<group>";
@@ -270,6 +290,7 @@
 			isa = PBXGroup;
 			children = (
 				F259967D29505B0E004E5AD1 /* HomeViewModel.swift */,
+				522D21752952EC1300744207 /* NotificationManager.swift */,
 			);
 			path = CalanderViewModel;
 			sourceTree = "<group>";
@@ -358,11 +379,14 @@
 			files = (
 				529C2FA1294DD03600366BCB /* ProfileView.swift in Sources */,
 				529C2FA5294E0BCC00366BCB /* MainView.swift in Sources */,
+				522D21702952A92800744207 /* LikeStore.swift in Sources */,
 				52E9DE202951DB970093E4AE /* CommentStore.swift in Sources */,
 				52DAB11A2950341F005937DB /* ImagePicker.swift in Sources */,
 				F259968029505E6D004E5AD1 /* User.swift in Sources */,
+				522D21782952EC5000744207 /* LocalNotification.swift in Sources */,
 				5280C39C294CCA55004D241C /* ContentView.swift in Sources */,
 				F259966429505725004E5AD1 /* LoginSignupStore.swift in Sources */,
+				522D21762952EC1300744207 /* NotificationManager.swift in Sources */,
 				52DAB112295028B0005937DB /* Post.swift in Sources */,
 				52E9DE222951DC030093E4AE /* CardView.swift in Sources */,
 				5280C3A8294CCA70004D241C /* LodingView.swift in Sources */,
@@ -371,16 +395,20 @@
 				52DAB118295033EB005937DB /* AddPostView.swift in Sources */,
 				52DAB114295029C0005937DB /* Like.swift in Sources */,
 				F259967829505AFC004E5AD1 /* AddSchedule.swift in Sources */,
+				522D217A2952F0AA00744207 /* FollowStore.swift in Sources */,
 				F2E4CC6629514C1700D21D2A /* CategoryView.swift in Sources */,
 				52DAB1102950287D005937DB /* PostStore.swift in Sources */,
 				529C2F98294DCA3E00366BCB /* LoginView.swift in Sources */,
 				F2E4CC5E2951430600D21D2A /* SignUpView.swift in Sources */,
 				52F42BF7294F7F2300F94AC1 /* ContainTabView.swift in Sources */,
 				52DAB11629502AD0005937DB /* Comment.swift in Sources */,
+				522D216E29529A1200744207 /* OtherPersonProfileView.swift in Sources */,
 				529C2F9D294DCB2200366BCB /* FeedView.swift in Sources */,
+				522D21722952E90A00744207 /* SearchCardDetailView.swift in Sources */,
 				F259967929505AFC004E5AD1 /* CustomDatePicker.swift in Sources */,
 				F259967B29505AFC004E5AD1 /* ScheduleToggle.swift in Sources */,
 				52F42BF5294F40CB00F94AC1 /* LodingAndLoginView.swift in Sources */,
+				522D21742952EAD600744207 /* EditPostView.swift in Sources */,
 				52E9DE242951DC290093E4AE /* CommentView.swift in Sources */,
 				52E9DE27295202180093E4AE /* SearchCardView.swift in Sources */,
 				F259967E29505B0E004E5AD1 /* HomeViewModel.swift in Sources */,

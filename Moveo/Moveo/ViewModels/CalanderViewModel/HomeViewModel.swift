@@ -14,21 +14,7 @@ class Schedule: ObservableObject {
 
 // 샘플 task
 class SampleTask: ObservableObject {
-    @Published var tasks: [TaskMetaData] = [
-//        TaskMetaData(task: [
-//            Task(title: "밥하기"),
-//            Task(title: "밥 먹기"),
-//            Task(title: "설거지하기")
-//        ], taskDate: getSampleDate(offset: 0), taskTime: Date()
-//        ),
-//
-//        TaskMetaData(task: [
-//            Task(title: "청소하기"),
-//            Task(title: "학교 가기"),
-//            Task(title: "수업 듣기")
-//        ], taskDate: getSampleDate(offset: -5), taskTime: Date()
-//        )
-    ]
+    @Published var tasks: [TaskMetaData] = []
     
     // date 타입을 sort 하는 방법을 찾아야한다...
     @Published var sortedTasks: [TaskMetaData] = []

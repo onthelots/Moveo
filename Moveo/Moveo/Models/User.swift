@@ -25,14 +25,12 @@ struct Bookmark : Codable, Identifiable {
 
 struct Follower : Codable, Identifiable {
     var id : String
-    var followerUid : String
     var nickName : String
     var imageUrl : String
 }
 
 struct Following : Codable, Identifiable {
     var id : String
-    var followingUid : String
     var nickName : String
     var imageUrl : String
 }

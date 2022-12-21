@@ -8,10 +8,15 @@
 import SwiftUI
 
 struct Home: View {
+    @EnvironmentObject var postStore : PostStore
     @EnvironmentObject var loginSignupStore: LoginSignupStore
     @State private var currentDate: Date = Date()
     @State private var bottomSheetActivated: Bool = false
     
+    // MARK: - 로그인 창에서, 해당 알림권한 설정 기능을 추가함
+    @EnvironmentObject var inManager: NotificationManager
+    @Environment(\.scenePhase) var scenePhase
+
     var body: some View {
         VStack {
             HStack {
@@ -68,10 +73,27 @@ struct Home: View {
                     AddSchedule()
                         .presentationDetents([.medium, .large])
                 }
+                // MARK: - 로그인 버튼을 누를 경우, 권한설정 메세지가 발생함
+                .task {
+                    try? await inManager.requestAuthorization()
+                }
+                // onChange 수정자를 통해 [scenePhase]기능을 추가하는데
+                //
+                
+                // MARK: - 만약, 권한설정을 거절한 후, 설정창에서 수동으로 알림기능을 작동시킬 경우 scenePhase
+                .onChange(of: scenePhase) { newValue in
+                    if newValue == .active {
+                        Task {
+                            await inManager.getCurrentSetting()
+                            await inManager.getPendingRequests()
+                        }
+                    }
+                }
             }
         }
         .onAppear{
             loginSignupStore.fetchUser()
+            postStore.fetchPosts()
         }
     }
 }
@@ -81,5 +103,7 @@ struct Home_Previews: PreviewProvider {
         Home()
             .environmentObject(SampleTask())
             .environmentObject(LoginSignupStore())
+            .environmentObject(NotificationManager())
+            .environmentObject(PostStore())
     }
 }
