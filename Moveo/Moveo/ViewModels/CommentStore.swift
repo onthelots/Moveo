@@ -21,7 +21,7 @@ class CommentStore: ObservableObject {
     func fetchComments() {
         Firestore.firestore().collection("post").document(postId ?? "")
             .collection("Comments")
-            .order(by: "date", descending: false)
+            .order(by: "commentDate", descending: false)
             .getDocuments { (snapshot, error) in
                 self.comments.removeAll()
                 
