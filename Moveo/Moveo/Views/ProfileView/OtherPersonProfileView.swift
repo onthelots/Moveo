@@ -1,19 +1,33 @@
 //
-//  OtherPersonProfileView.swift
+//  ProfileView.swift
 //  Moveo
 //
-//  Created by 진준호 on 2022/12/21.
+//  Created by 이종현 on 2022/12/21.
 //
 
 import SwiftUI
 import SDWebImageSwiftUI
-// MARK: - 21일 오전 10시 40분 새로 추가된 뷰
+// TODO: - 형태는 유지하되 전체적으로 데이터를 받아와서 보여줄 수 있도록 할 것
 struct OtherPersonProfileView: View {
     
     @EnvironmentObject var loginSignupStore: LoginSignupStore
     @EnvironmentObject var postStore : PostStore
+    @EnvironmentObject var followingStore : FollowStore
+    
+    @State var isSelected = 0
+    
+    @State var myToggle: Bool = true
+    @State var bookToggle: Bool = false
+    @State var menuXAxis: Double = -90
+    
+    @State private var isSelectedMenu: Bool = false
     
     var columns : [GridItem] = Array(repeating: GridItem(.flexible(), spacing: nil, alignment: nil), count: 2)
+    // 내 포스트와 북마크된 포스트들의 배열
+    @State var bookMarkedPosts : [Post] = []
+    @State var myPosts : [Post] = []
+    // Motivators에 나를 제외한 유저들을 보여줌
+    @State var usersExceptMe : [User] = []
     
     var body: some View {
         NavigationStack {
@@ -21,10 +35,17 @@ struct OtherPersonProfileView: View {
                 Color.backgroundColor
                     .edgesIgnoringSafeArea(.all)
                 
-                VStack(alignment: .leading) {
-                    Text(loginSignupStore.postUserData?.nickName ?? "")
-                        .font(.title2)
-                        .bold()
+                VStack {
+                    HStack(spacing: 15) {
+                        Text(loginSignupStore.postUserData?.nickName ?? "")
+                            .font(.title2)
+                            .bold()
+                        
+                        Spacer()
+                        
+                    }
+                    .padding(.horizontal, 20)
+                    .padding(.top, 10)
                     
                     ScrollView {
                         VStack {
@@ -33,9 +54,9 @@ struct OtherPersonProfileView: View {
                                     .resizable()
                                     .frame(width: 60, height: 60)
                                     .clipShape(Circle())
-                                OtherPersonFollowers(text1: "4", text2: "게시물")
-                                OtherPersonFollowers(text1: "110", text2: "팔로우")
-                                OtherPersonFollowers(text1: "120", text2: "팔로잉")
+                                Followers(text1: "\(self.countMyPosts())", text2: "게시물")
+                                Followers(text1: "\(followingStore.followers.count)", text2: "팔로워")
+                                Followers(text1: "\(followingStore.followings.count)", text2: "팔로잉")
                             }
                             .padding(10)
                             
@@ -49,17 +70,34 @@ struct OtherPersonProfileView: View {
                                     ForEach(loginSignupStore.postUserData?.category ?? [], id: \.self) { category in
                                         Text(category)
                                             .padding()
-                                            .font(.system(size: 25))
+                                            .font(.caption)
+                                            .frame(width: 80, height: 30)
                                             .foregroundColor(.white)
                                             .background { Color.mainColor }
                                             .cornerRadius(50)
+                                            .onTapGesture {
+                                                fetchMyPosts(category: category)
+                                            }
                                     }
+                                    Image(systemName: "plus.circle.fill")
+                                        .frame(width: 30, height: 30)
+                                        .foregroundColor(.gray)
+                                        .opacity(0.5)
+                                        .font(.title)
                                 }
                                 .padding(.leading, 20)
                             }
-                            
                             Divider()
-                            
+                        }
+                        
+                        LazyVStack(pinnedViews: [.sectionHeaders]) {
+                                    LazyVGrid(columns: columns) {
+                                        ForEach(myPosts) { post in
+                                            MyPost(post: post)
+                                        }
+                                    }
+                                    .padding(.leading, 20)
+                                    .padding(.trailing, 20)
                         }
                     }
                 }
@@ -67,38 +105,70 @@ struct OtherPersonProfileView: View {
         }
         .onAppear{
             postStore.fetchPosts()
+            loginSignupStore.fetchUser()
+            followingStore.fetchFollowing()
+            followingStore.fetchFollower()
+            fetchMyPosts(category: loginSignupStore.currentUserData?.category[0] ?? "")
+            fetchUserExceptMe()
+        }
+    }
+    
+    // 위 bookMarkedPosts 배열에 북마크된 포스트들만 담아주는 배열
+    func makeBookMarkedPosts() {
+        self.bookMarkedPosts = []
+        guard let currentUser = loginSignupStore.currentUserData else { return }
+        print("loginSignupStore.bookmark : \(loginSignupStore.currentUserData!.bookmark)")
+        print("postStore.posts : \(postStore.posts)")
+        for post in postStore.posts {
+            if currentUser.bookmark.contains(post.id) {
+                bookMarkedPosts.append(post)
+            }
+        }
+        
+        print("bookMarkedPosts : \(bookMarkedPosts)")
+    }
+    
+    func fetchMyPosts(category : String) {
+        self.myPosts = []
+        guard let currentUser = loginSignupStore.currentUserData else { return }
+        
+        for post in postStore.posts {
+            if post.writerUid == currentUser.id {
+                if post.postCategory == category {
+                    myPosts.append(post)
+                }
+            }
+        }
+    }
+    
+    func countMyPosts() -> Int {
+        var count = 0
+        guard let currentUser = loginSignupStore.currentUserData else { return 0 }
+        for post in postStore.posts {
+            if post.writerUid == currentUser.id {
+                count += 1
+            }
+        }
+        return count
+    }
+    
+    func fetchUserExceptMe() {
+        self.usersExceptMe = []
+        guard let currentUser = loginSignupStore.currentUserData else { return }
+        for user in loginSignupStore.users {
+            if user.id != currentUser.id {
+                usersExceptMe.append(user)
+            }
         }
     }
 }
 
-struct OtherPersonFollowers : View {
-    var text1 : String
-    var text2 : String
-    var body: some View {
-        VStack(alignment: .center, spacing: 2) {
-            Text(text1)
-                .font(.system(size: 16, weight: .semibold))
-            Text(text2)
-                .font(.system(size: 15))
-        }
-    }
-}
-
-struct OtherPersonPost : View {
-    var post : Post
-    var body: some View {
-        WebImage(url: URL(string: post.postImageUrl))
-            .resizable()
-            .frame(width: 173, height: 173)
-            .scaledToFit()
-            .cornerRadius(10)
-    }
-}
 
 struct OtherPersonProfileView_Previews: PreviewProvider {
     static var previews: some View {
         OtherPersonProfileView()
             .environmentObject(LoginSignupStore())
             .environmentObject(PostStore())
+            .environmentObject(FollowStore())
     }
 }
