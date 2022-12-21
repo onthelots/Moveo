@@ -95,6 +95,7 @@ struct Home: View {
             loginSignupStore.fetchUser()
             postStore.fetchPosts()
         }
+        .padding(.horizontal, 10)
     }
 }
 

@@ -67,6 +67,7 @@ struct FeedView: View {
         .refreshable {
             postStore.fetchPosts()
         }
+        .padding(.horizontal, 10)
     }
 }
 

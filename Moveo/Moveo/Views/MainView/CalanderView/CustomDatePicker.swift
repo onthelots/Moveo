@@ -120,7 +120,7 @@ struct CustomDatePicker: View {
             }
             .animation(.spring(), value: currentDate)
             .padding()
-            .padding(.top, 25)
+            .padding(.top, 15)
             
             
 // 이 코드를 쓰면 같은 날에 여러 일정을 추가하지 못한다. 대신 일정이 없을 때 "추가된 일정이 없습니다" 문구가 나옴

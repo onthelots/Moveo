@@ -16,7 +16,7 @@ struct SearchView: View {
     @State private var searchText: String = ""
     
     // MARK: 현재 카테고리 이름
-    @State private var currentCategory: String = "전체"
+    @State private var currentCategory: String = "공부"
     
     // MARK: sheet toggle
     @State private var showSheet: Bool = false
@@ -55,14 +55,14 @@ struct SearchView: View {
                         ScrollView(.horizontal, showsIndicators: false) {
                             HStack(spacing: 20) {
                                 
-                                Button {
-                                    currentCategory = "전체"
-                                } label: {
-                                    Image(systemName: "list.bullet")
-                                        .resizable()
-                                        .scaledToFit()
-                                        .frame(width: 50)
-                                }
+//                                Button {
+//                                    currentCategory = "전체"
+//                                } label: {
+//                                    Image("searchCategory0")
+//                                        .resizable()
+//                                        .scaledToFit()
+//                                        .frame(width: 50)
+//                                }
                                 
                                 Button {
                                     currentCategory = "공부"
@@ -94,7 +94,7 @@ struct SearchView: View {
                                 Button {
                                     currentCategory = "멘탈케어"
                                 } label: {
-                                    Image(systemName: "brain.head.profile")
+                                    Image("searchCategory5")
                                         .resizable()
                                         .scaledToFit()
                                         .frame(width: 50)
@@ -103,7 +103,7 @@ struct SearchView: View {
                                 Button {
                                     currentCategory = "자기계발"
                                 } label: {
-                                    Image(systemName: "studentdesk")
+                                    Image("searchCategory4")
                                         .resizable()
                                         .scaledToFit()
                                         .frame(width: 50)
@@ -130,16 +130,17 @@ struct SearchView: View {
                                         .sheet(isPresented: $showSheet) {
                                             SearchCardDetailView(selectedCard: post)
                                         }
-                                    } else if (currentCategory == "전체") {
-                                        Button {
-                                            showSheet.toggle()
-                                        } label: {
-                                            SearchCardView(post: post, searchText: searchText)
-                                        }
-                                        .sheet(isPresented: $showSheet) {
-                                            SearchCardDetailView(selectedCard: post)
-                                        }
                                     }
+//                                    else if (currentCategory == "전체") {
+//                                        Button {
+//                                            showSheet.toggle()
+//                                        } label: {
+//                                            SearchCardView(post: post, searchText: searchText)
+//                                        }
+//                                        .sheet(isPresented: $showSheet) {
+//                                            SearchCardDetailView(selectedCard: post)
+//                                        }
+//                                    }
                                 }
                             }
                         }
