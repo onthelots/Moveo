@@ -26,11 +26,8 @@
 ## 사용자 가이드
 
 - 로그인 및 회원가입
-<img width="376" alt="스크린샷 2022-12-21 오후 6 46 23" src="https://user-images.githubusercontent.com/111134273/208881033-871fa813-afec-4cc3-8d09-d5dde9e2db61.png">
-<img width="376" alt="스크린샷 2022-12-21 오후 6 47 04" src="https://user-images.githubusercontent.com/111134273/208881078-f85b1e1e-382c-49ec-b6cf-ca67f100e6a9.png">
-<img width="376" alt="스크린샷 2022-12-21 오후 6 47 19" src="https://user-images.githubusercontent.com/111134273/208881139-86715721-03c1-4d86-a4a9-c8c23f25de82.png">
-<img width="376" alt="스크린샷 2022-12-21 오후 6 48 11" src="https://user-images.githubusercontent.com/111134273/208881286-c8ba95ea-ce87-4bdc-bf2d-c69da6d49bb6.png">
-<img width="376" alt="스크린샷 2022-12-21 오후 6 48 34" src="https://user-images.githubusercontent.com/111134273/208881337-9a3aa810-ba8d-4f9c-ac78-424a1eb03642.png">
+![loginView](https://user-images.githubusercontent.com/111134273/208884245-54e551f7-d69a-4100-b3af-f5f9e9387658.png)
+
 
 ```
 - 회원가입 버튼을 눌러 회원가입 뷰로 이동할 수 있으면 프로필사진, 한줄소개, 관심있는 카테고리, 회원 정보를 입력하고 회원가입을 진행할 수 있습니다.
