@@ -5,8 +5,9 @@ import FirebaseFirestore
 import FirebaseAuth
 
 class CommentStore: ObservableObject {
+    // 댓글을 저장해줄 배열
     @Published var comments: [Comment] = []
-    
+    // 댓글 내용
     @Published var commentText: String = ""
     
     let dateFormatter: DateFormatter = {
@@ -18,6 +19,7 @@ class CommentStore: ObservableObject {
     
     var postId: String?
     
+    // 댓글들을 store에서 받아와서 comments에 넣어주는 역할
     func fetchComments() {
         Firestore.firestore().collection("post").document(postId ?? "")
             .collection("Comments")
@@ -45,6 +47,7 @@ class CommentStore: ObservableObject {
         print("success fetchComments")
     }
     
+    // 댓글을 store에 추가해주는 역할
     func addComment(currentNickName: String, currentProfileImage: String) {
         let id: String = UUID().uuidString
         let comment = ["id": id, "uid": Auth.auth().currentUser?.uid, "nickName": currentNickName, "profileImage": currentProfileImage, "commentText": commentText, "commentDate": dateFormatter.string(from: Date.now)]

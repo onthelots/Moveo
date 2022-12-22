@@ -9,10 +9,10 @@ import SwiftUI
 import SDWebImageSwiftUI
 // TODO: - 형태는 유지하되 전체적으로 데이터를 받아와서 보여줄 수 있도록 할 것
 struct ProfileView: View {
+    @StateObject var loginSignupStore: LoginSignupStore = LoginSignupStore()
+    @StateObject var postStore : PostStore = PostStore()
+    @StateObject var followingStore : FollowStore = FollowStore()
     
-    @EnvironmentObject var loginSignupStore: LoginSignupStore
-    @EnvironmentObject var postStore : PostStore
-    @EnvironmentObject var followingStore : FollowStore
     @State var isExpanded = false
     @State var subviewHeight : CGFloat = 0
     @State var motiDegree : CGFloat = 90
@@ -85,7 +85,7 @@ struct ProfileView: View {
                                 Followers(text1: "\(followingStore.followers.count)", text2: "팔로워")
                                 Followers(text1: "\(followingStore.followings.count)", text2: "팔로잉")
                             }
-                            .padding(10)
+                            .padding(.vertical, 10)
                             
                             Text(loginSignupStore.currentUserData?.description ?? "")
                                 .font(.system(size: 15, weight: .semibold))
@@ -191,13 +191,13 @@ struct ProfileView: View {
         }
         .onAppear{
             postStore.fetchPosts()
-            loginSignupStore.fetchUser()
-            followingStore.fetchFollowing()
-            followingStore.fetchFollower()
-            loginSignupStore.currentUserDataInput()
             makeBookMarkedPosts()
             fetchMyPosts(category: loginSignupStore.currentUserData?.category[0] ?? "")
             fetchUserExceptMe()
+            loginSignupStore.fetchUser()
+            loginSignupStore.currentUserDataInput()
+            followingStore.fetchFollowing()
+            followingStore.fetchFollower()
         }
     }
     
@@ -205,15 +205,12 @@ struct ProfileView: View {
     func makeBookMarkedPosts() {
         self.bookMarkedPosts = []
         guard let currentUser = loginSignupStore.currentUserData else { return }
-        print("loginSignupStore.bookmark : \(loginSignupStore.currentUserData!.bookmark)")
-        print("postStore.posts : \(postStore.posts)")
+        
         for post in postStore.posts {
             if currentUser.bookmark.contains(post.id) {
                 bookMarkedPosts.append(post)
             }
         }
-        
-        print("bookMarkedPosts : \(bookMarkedPosts)")
     }
     
     func fetchMyPosts(category : String) {
@@ -351,7 +348,7 @@ struct Motivators : View {
             }
         }
         .onAppear {
-            loginSignupStore.currentUserDataInput()
+            // loginSignupStore.currentUserDataInput()
             followingStore.fetchFollowing()
             checkFollwing()
         }
@@ -374,9 +371,11 @@ struct Motivators : View {
 struct MyPost : View {
     var post : Post
     var body: some View {
-        WebImage(url: URL(string: post.postImageUrl))         .resizable()
-            .frame(width: 173, height: 173)
-            .scaledToFit()
+        WebImage(url: URL(string: post.postImageUrl))
+            .resizable()
+            .aspectRatio(contentMode: .fill)
+            .frame(width: 170, height: 175)
+            .clipped()
             .cornerRadius(10)
     }
 }
@@ -391,8 +390,5 @@ struct ViewHeightKey: PreferenceKey {
 struct ProfileView_Previews: PreviewProvider {
     static var previews: some View {
         ProfileView()
-            .environmentObject(LoginSignupStore())
-            .environmentObject(PostStore())
-            .environmentObject(FollowStore())
     }
 }

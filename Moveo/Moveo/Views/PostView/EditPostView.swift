@@ -106,7 +106,7 @@ struct EditPostView: View {
             ImagePicker(image: $postStore.postImage)
         }
         .onAppear{
-            loginSignupStore.currentUserDataInput()
+            //loginSignupStore.currentUserDataInput()
             postStore.fetchPosts()
         }
     }

@@ -152,23 +152,22 @@ struct CardView: View {
                             } label: {
                                 if likeToggle {
                                     Image(systemName: "heart.fill")
-                                        .foregroundColor(Color.black)
+                                        .foregroundColor(Color.red)
+                                        .font(.title2)
                                     
                                 } else {
                                     Image(systemName: "heart")
-                                        .foregroundColor(Color.red)
+                                        .foregroundColor(Color.black)
+                                        .font(.title2)
                                 }
                             }
-                            
-                            Text("1.1k")
-                                .font(.caption2)
-                                .fontWeight(.light)
                             
                             NavigationLink(destination: {
                                 CommentView(post: post)
                             }, label: {
                                 Image(systemName: "message")
                                     .font(.title3)
+                                    .foregroundColor(.black)
                             })
                             
                             //TO DO : comment의 사용자 id를 카운트 해서 반영
@@ -183,7 +182,7 @@ struct CardView: View {
                 }
             }
             .onAppear {
-                loginSignupStore.currentUserDataInput()
+                //loginSignupStore.currentUserDataInput()
                 checkBookmarked()
                 likeStore.fetchLikes(post: post)
             }

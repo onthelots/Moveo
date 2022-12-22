@@ -63,7 +63,6 @@ struct CommentView: View {
         }
         .onAppear {
             commentStore.postId = post.id
-            userStore.currentUserDataInput()
             commentStore.fetchComments()
         }
         .sheet(isPresented: $showModal) {
@@ -82,8 +81,8 @@ struct CommentView: View {
 struct CommentView_Previews: PreviewProvider {
     static var previews: some View {
         CommentView(post: PostStore().posts[0])
-            .environmentObject(LoginSignupStore())
             .environmentObject(CommentStore())
+            .environmentObject(LoginSignupStore())
     }
 }
 

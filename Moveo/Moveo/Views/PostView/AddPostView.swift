@@ -105,7 +105,7 @@ struct AddPostView: View {
             ImagePicker(image: $postStore.postImage)
         }
         .onAppear{
-            loginSignupStore.currentUserDataInput()
+            //loginSignupStore.currentUserDataInput()
         }
     }
 }

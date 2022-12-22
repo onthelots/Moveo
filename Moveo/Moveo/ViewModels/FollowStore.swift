@@ -13,20 +13,16 @@ import FirebaseStorage
 import SwiftUI
 
 class FollowStore : ObservableObject {
-    
+    // 팔로워, 팔로잉들을 저장하는 배열
     @Published var followings : [Following] = []
     @Published var followers : [Follower] = []
     @Published var currentUser: Firebase.User?
-//    var id : String
-//    var followingUid : String
-//    var nickName : String
-//    var imageUrl : String
-  
     
     init() {
         currentUser = Auth.auth().currentUser
             }
     
+    // 팔로잉된 정보를 store에서 가져오는 기능
     func fetchFollowing() {
         Firestore.firestore().collection("users")
             .document(self.currentUser?.uid ?? "")
@@ -45,11 +41,11 @@ class FollowStore : ObservableObject {
                         
                         self.followings.append(following)
                     }
-                    dump(self.followings)
                 }
             }
     }
     
+    // 팔로워한 정보를 store에서 가져오는 기능
     func fetchFollower() {
         Firestore.firestore().collection("users")
             .document(self.currentUser?.uid ?? "")
@@ -68,11 +64,11 @@ class FollowStore : ObservableObject {
                         
                         self.followers.append(follower)
                     }
-                    dump(self.followers)
                 }
             }
     }
     
+    // 팔로잉한 정보를 store로 보내주는 기능
     func addFollowing(user: User, currentUser: User) {
 
         let following = ["id" : user.id, "nickName" : user.nickName, "imageUrl" : user.profileImageUrl]
@@ -98,12 +94,13 @@ class FollowStore : ObservableObject {
                     return
                 }
                 
-                print("followingSuccess")
+                print("followerSuccess")
             }
         fetchFollowing()
         fetchFollower()
     }
 
+    // 팔로잉한 정보를 store에서 삭제하는 기능
     func deleteFollowing(user: User, currentUser: User) {
 
         Firestore.firestore().collection("users").document(currentUser.id).collection("Following").document(user.id).delete() { err in
@@ -123,9 +120,4 @@ class FollowStore : ObservableObject {
         fetchFollowing()
         fetchFollower()
     }
-    
-    
-    
-    
-    
 }

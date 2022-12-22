@@ -36,16 +36,16 @@ struct OtherPersonProfileView: View {
                     .edgesIgnoringSafeArea(.all)
                 
                 VStack {
-                    HStack(spacing: 15) {
-                        Text(loginSignupStore.postUserData?.nickName ?? "")
-                            .font(.title2)
-                            .bold()
-                        
-                        Spacer()
-                        
-                    }
-                    .padding(.horizontal, 20)
-                    .padding(.top, 10)
+//                    HStack(spacing: 15) {
+//                        Text(loginSignupStore.postUserData?.nickName ?? "")
+//                            .font(.title2)
+//                            .bold()
+//
+//                        Spacer()
+//
+//                    }
+//                    .padding(.horizontal, 20)
+//                    .padding(.top, 10)
                     
                     ScrollView {
                         VStack {
@@ -85,7 +85,6 @@ struct OtherPersonProfileView: View {
                                         .opacity(0.5)
                                         .font(.title)
                                 }
-                                .padding(.leading, 20)
                             }
                             Divider()
                         }
@@ -96,13 +95,14 @@ struct OtherPersonProfileView: View {
                                             MyPost(post: post)
                                         }
                                     }
-                                    .padding(.leading, 20)
-                                    .padding(.trailing, 20)
+                                    .padding(.leading, 10)
+                                    .padding(.trailing, 10)
                         }
                     }
                 }
             }
         }
+        .navigationTitle(loginSignupStore.postUserData?.nickName ?? "")
         .onAppear{
             postStore.fetchPosts()
             loginSignupStore.fetchUser()

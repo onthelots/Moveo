@@ -9,6 +9,7 @@
 import Foundation
 import Firebase
 import FirebaseStorage
+import FirebaseFirestore
 import SwiftUI
 
 // MARK: LoginSignupStore
@@ -31,9 +32,9 @@ class LoginSignupStore: ObservableObject {
     @Published var selectedCategories : [String] = []
     @Published var bookmark : [String] = []
     @Published var description : String = ""
+    
     // 프로필
     @Published var profileImageUrl: UIImage?
-    //    @Published var currentUserInfo: [MyUser] = []
     
     // 로그인 상태 확인
     @Published var currentUser: Firebase.User?
@@ -45,14 +46,22 @@ class LoginSignupStore: ObservableObject {
     @Published var users : [User] = []
     
     // current user Data
-    @Published var currentUserData: User? = nil
+    @Published var currentUserData: User?
     
-    // MARK: - 21일 오전 10시 40분 새로 추가된 변수 / post를 작성한 유저의 정보를 받아오기 위한 변수
+    // post를 작성한 유저의 정보를 받아오기 위한 변수
     @Published var postUserData: User? = nil
     
+    // TODO: - 앱을 실행시킬 때 초기화로 현재유저값을 받아와도 될 것 같음
     init() {
         currentUser = Auth.auth().currentUser
-        print("현재 유저 uid \(currentUser?.uid ?? "")")
+//
+//        fetchUser()
+//
+//        if let userUid: String = currentUser?.uid {
+//           currentUserDataInput(uid: userUid)
+//        }
+//
+//        print(currentUserData?.nickName ?? "")
     }
     
     // 로그인
@@ -88,7 +97,7 @@ class LoginSignupStore: ObservableObject {
         }
     }
     
-    // user 정보 database에 저장
+    // TODO: - 아래에 profileImageToStorage 함수와 기능적으로 겹침, 하나로 만들 수 있도록 해볼 것 / user 정보 database에 저장
     func storeUserInfoToDatabase(uid: String) {
         
         let uid = uid
@@ -113,6 +122,7 @@ class LoginSignupStore: ObservableObject {
                 guard let url = url else { return }
                 
                 print(uid)
+                
                 // model을 쓰면 쉽게 구조화할 수 있음
                 let userData = ["name" : self.name, "nickName" : self.nickName, "email" : self.signUpEmail, "id" : uid, "profileImageUrl": url.absoluteString, "category": self.selectedCategories, "bookmark" : self.bookmark, "description" : self.description] as [String : Any]
                 
@@ -121,7 +131,6 @@ class LoginSignupStore: ObservableObject {
                         print(error)
                         return
                     }
-                    print("success")
                 }
             }
             
@@ -129,32 +138,7 @@ class LoginSignupStore: ObservableObject {
         fetchUser()
     }
     
-    func fetchUser() {
-        Firestore.firestore().collection("users")
-            .getDocuments { (snapshot, error) in
-                self.users.removeAll()
-                
-                if let snapshot {
-                    for document in snapshot.documents {
-                        
-                        let docData = document.data()
-                        // 있는지를 따져서 있으면 String으로 만들어줘, 없으면 ""로 만들자
-                        let id: String = docData["id"] as? String ?? ""
-                        let name: String = docData["name"] as? String ?? ""
-                        let nickName: String = docData["nickName"] as? String ?? ""
-                        let email: String = docData["email"] as? String ?? ""
-                        let profileImageUrl: String = docData["profileImageUrl"] as? String ?? ""
-                        let category : [String] = docData["category"] as? [String] ?? []
-                        let bookmark : [String] = docData["bookmark"] as? [String] ?? []
-                        let description : String = docData["description"] as? String ?? ""
-                        let user: User = User(id: id, email: email, name: name, nickName: nickName, profileImageUrl: profileImageUrl, category: category, bookmark: bookmark, description: description)
-                        
-                        self.users.append(user)
-                    }
-                }
-            }
-    }
-    
+    // TODO: - 위 storeUserInfoToDatabase 함수와 기능이 겹침 / 중복 안되게 사용해볼 것
     func profileImageToStorage(selectedPost: Post) {
         let uid = UUID().uuidString
         
@@ -202,69 +186,40 @@ class LoginSignupStore: ObservableObject {
         self.fetchUser()
     }
     
+    // TODO: - 로그인 시 한번만 해줘도 될 것 같음 / 유저들의 정보를 users에 넣어줌
+    func fetchUser() {
+        Firestore.firestore().collection("users")
+            .getDocuments { (snapshot, error) in
+                self.users.removeAll()
+                
+                if let snapshot {
+                    for document in snapshot.documents {
+                        
+                        let docData = document.data()
+                        // 있는지를 따져서 있으면 String으로 만들어줘, 없으면 ""로 만들자
+                        let id: String = docData["id"] as? String ?? ""
+                        let name: String = docData["name"] as? String ?? ""
+                        let nickName: String = docData["nickName"] as? String ?? ""
+                        let email: String = docData["email"] as? String ?? ""
+                        let profileImageUrl: String = docData["profileImageUrl"] as? String ?? ""
+                        let category : [String] = docData["category"] as? [String] ?? []
+                        let bookmark : [String] = docData["bookmark"] as? [String] ?? []
+                        let description : String = docData["description"] as? String ?? ""
+                        let user: User = User(id: id, email: email, name: name, nickName: nickName, profileImageUrl: profileImageUrl, category: category, bookmark: bookmark, description: description)
+                        
+                        self.users.append(user)
+                    }
+                }
+            }
+    }
+    
+    // TODO: - 로그인 시 한번만 작동해도 될 것 같음 / 현재 사용자 정보를 받아오는 함수
     func currentUserDataInput() {
         let uid: String = currentUser?.uid ?? ""
-
+        
         if !users.isEmpty {
             let myUser: User = users.filter{ $0.id == uid }[0]
             currentUserData = myUser
-        }
-    }
-    
-    func findPostNickname(selectedPost : Post) -> String {
-        let uid: String = selectedPost.writerUid
-        
-        let myUser: User = users.filter{ $0.id == uid }[0]
-        
-        if myUser.nickName != "" {
-            return myUser.nickName
-        } else {
-            return "can't find nickname"
-        }
-    }
-    
-    func findPostProfileImageUrlString(selectedPost : Post) -> String {
-        let uid: String = selectedPost.writerUid
-        if !users.isEmpty {
-            let myUser: User = users.filter{ $0.id == uid }[0]
-            return myUser.profileImageUrl
-        } else {
-            return ""
-        }
-        
-    }
-    
-    func findCommentNickname(comment : Comment) -> String {
-        let uid: String = comment.uid
-        let myUser: User = users.filter{ $0.id == uid }[0]
-        
-        if myUser.nickName != "" {
-            return myUser.nickName
-        } else {
-            return "can't find nickname"
-        }
-    }
-    
-    
-    
-    func findCommentProfileImageUrlString(comment : Comment) -> String {
-        let uid: String = comment.uid
-        if !users.isEmpty {
-            let myUser: User = users.filter{ $0.id == uid }[0]
-            return myUser.profileImageUrl
-        } else {
-            return ""
-        }
-    }
-    
-    func currentUserImageUrlString() -> String {
-        let uid: String = currentUser?.uid ?? ""
-        
-        if !users.isEmpty {
-            let myUser: User = users.filter{ $0.id == uid }[0]
-            return myUser.profileImageUrl
-        } else {
-            return ""
         }
     }
     
@@ -282,7 +237,7 @@ class LoginSignupStore: ObservableObject {
         fetchUser()
     }
     
-    // MARK: - 21일 오전 10시 40분 새로 추가된 함수 / post를 작성한 유저의 데이터를 받아오는 함수
+    // post를 작성한 유저의 데이터를 받아오는 함수
     func postWriterUserDataInput(post: Post) {
         let writerUid = post.writerUid
         

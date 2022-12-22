@@ -91,10 +91,6 @@ struct Home: View {
                 }
             }
         }
-        .onAppear{
-            loginSignupStore.fetchUser()
-            postStore.fetchPosts()
-        }
         .padding(.horizontal, 10)
     }
 }
