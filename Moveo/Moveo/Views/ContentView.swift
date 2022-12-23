@@ -14,12 +14,16 @@ extension Color{
 }
 
 struct ContentView: View {
-    @EnvironmentObject var loginSignStore: LoginSignupStore
-    
+    //@EnvironmentObject var loginSignupStore: LoginSignupStore
+    @StateObject var loginSignupStore: LoginSignupStore = LoginSignupStore()
+
     var body: some View {
         // MARK: 현재 로그인 상태를 확인해서 로그인 상태면 메인뷰로 아니면 로그인뷰로 화면 출력
-            if loginSignStore.$currentUser != nil {
+            if loginSignupStore.$currentUser != nil {
                 ContainTabView()
+//                    .onAppear{
+//                        loginSignupStore.fetchUser()
+//                    }
             } else {
                 LodingAndLoginView()
             }

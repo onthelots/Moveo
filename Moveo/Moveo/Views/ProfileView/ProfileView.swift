@@ -10,6 +10,7 @@ import SDWebImageSwiftUI
 // TODO: - 형태는 유지하되 전체적으로 데이터를 받아와서 보여줄 수 있도록 할 것
 struct ProfileView: View {
     @StateObject var loginSignupStore: LoginSignupStore = LoginSignupStore()
+
     @StateObject var postStore : PostStore = PostStore()
     @StateObject var followingStore : FollowStore = FollowStore()
     
@@ -86,6 +87,7 @@ struct ProfileView: View {
                                 Followers(text1: "\(followingStore.followings.count)", text2: "팔로잉")
                             }
                             .padding(.vertical, 10)
+
                             
                             Text(loginSignupStore.currentUserData?.description ?? "")
                                 .font(.system(size: 15, weight: .semibold))
@@ -194,8 +196,12 @@ struct ProfileView: View {
             makeBookMarkedPosts()
             fetchMyPosts(category: loginSignupStore.currentUserData?.category[0] ?? "")
             fetchUserExceptMe()
+            
+            
             loginSignupStore.fetchUser()
-            loginSignupStore.currentUserDataInput()
+            loginSignupStore.fetchCurrentUser()
+            
+            
             followingStore.fetchFollowing()
             followingStore.fetchFollower()
         }

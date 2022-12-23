@@ -8,6 +8,7 @@
 import SwiftUI
 import Firebase
 import FirebaseStorage
+import SDWebImageSwiftUI
 
 
 struct EditPostView: View {
@@ -24,7 +25,7 @@ struct EditPostView: View {
     @State private var selectedCategory: String = ""
     
     @State var post: Post
-
+    
     
     var body: some View {
         VStack {
@@ -33,22 +34,25 @@ struct EditPostView: View {
                 imagePickerSelected.toggle()
             } label: {
                 if let image = self.postStore.postImage {
-                    Image(uiImage: image)
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: UIScreen.main.bounds.width)
+                        Image(uiImage: image)
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: UIScreen.main.bounds.width)
+
                 } else {
                     ZStack {
                         Image(systemName: "camera")
                             .zIndex(1)
                             .font(.largeTitle)
                             .foregroundColor(.pointGray)
-                        
+
                         Rectangle()
                             .stroke(Color.pointGray, lineWidth: 1)
                             .frame(width: 400, height: 330)
                     }
                 }
+                
+                
             }
             .frame(width: 400, height: 330)
             
@@ -58,7 +62,7 @@ struct EditPostView: View {
                 Spacer()
                 
                 // MARK: - categoryPicker
-                Picker("카테고리를 선택해주세요", selection: $selectedCategory) {
+                Picker("카테고리를 선택해주세요", selection: $post.postCategory) {
                     ForEach(categories, id: \.self) {
                         Text($0)
                     }
@@ -73,13 +77,14 @@ struct EditPostView: View {
                     .frame(height: 200)
                 
                 if postStore.bodyText == "" {
-                    Text("내용을 입력해주세요")
+                    //                    Text("내용을 입력해주세요")
+                    //                        .opacity(0.5)
+                    //                        .offset(x: -100, y: -65)
+                    Text(post.bodyText)
                         .opacity(0.5)
-                        .offset(x: -100, y: -65)
+                        .offset(x: -80, y: -65)
                 }
             }
-            
-
             
             Spacer()
             Button {
@@ -101,13 +106,34 @@ struct EditPostView: View {
                 Color.mainColor
             }
             .cornerRadius(10)
+            
+            Button {
+                postStore.removePost(post)
+                dismiss()
+            } label: {
+                Text("삭제하기")
+                    .foregroundColor(.white)
+                    .padding()
+            }
+            .frame(width: 330, height: 40)
+            .font(.title3)
+            .fontWeight(.bold)
+            .foregroundColor(.black)
+            .background {
+                Color.red
+            }
+            .cornerRadius(10)
         }
         .fullScreenCover(isPresented: $imagePickerSelected) {
             ImagePicker(image: $postStore.postImage)
         }
         .onAppear{
-            //loginSignupStore.currentUserDataInput()
+            loginSignupStore.fetchCurrentUser()
             postStore.fetchPosts()
+
         }
     }
+    
+    
 }
+
