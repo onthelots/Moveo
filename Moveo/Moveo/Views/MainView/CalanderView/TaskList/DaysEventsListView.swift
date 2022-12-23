@@ -14,6 +14,10 @@ struct DaysEventsListView: View {
     @Binding var dateSelected: DateComponents?
     @State private var formType: EventFormType?
     
+    @StateObject var postStore: PostStore = PostStore()
+    @StateObject var likeStore: LikeStore = LikeStore()
+    
+
     var body: some View {
         NavigationStack {
             Group {

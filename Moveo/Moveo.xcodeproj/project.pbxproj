@@ -136,6 +136,14 @@
 			path = TaskList;
 			sourceTree = "<group>";
 		};
+		3F0B6D7F295579D3004BAEE1 /* AddTask */ = {
+			isa = PBXGroup;
+			children = (
+				3F0B6D7329557621004BAEE1 /* AddTaskView.swift */,
+			);
+			path = AddTask;
+			sourceTree = "<group>";
+		};
 		5280C38D294CCA55004D241C = {
 			isa = PBXGroup;
 			children = (
@@ -193,11 +201,11 @@
 		529C2F95294DCA0500366BCB /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				F259966E29505AE2004E5AD1 /* CalanderModel */,
 				52DAB111295028B0005937DB /* Post.swift */,
 				52DAB113295029C0005937DB /* Like.swift */,
 				52DAB11529502AD0005937DB /* Comment.swift */,
 				F259967F29505E6D004E5AD1 /* User.swift */,
-				F259966E29505AE2004E5AD1 /* CalanderModel */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -298,8 +306,8 @@
 		F259967329505AFC004E5AD1 /* CalanderView */ = {
 			isa = PBXGroup;
 			children = (
+				3F0B6D7F295579D3004BAEE1 /* AddTask */,
 				3F0B6D6D29557621004BAEE1 /* TaskList */,
-				3F0B6D7329557621004BAEE1 /* AddTaskView.swift */,
 				3F0B6D7129557621004BAEE1 /* CalendarView.swift */,
 				3F0B6D7229557621004BAEE1 /* EventsCalendarView.swift */,
 			);

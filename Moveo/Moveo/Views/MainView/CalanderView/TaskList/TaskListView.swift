@@ -7,13 +7,16 @@
 
 import SwiftUI
 
+
+// MARK: - 사용자가 입력한 일정을 보여주는 TaskListView
 struct TaskListView: View {
-    @EnvironmentObject var eventStore: EventStore
+    
     @EnvironmentObject var myEvents: EventStore
     @State private var formType: EventFormType?
     
     var body: some View {
         NavigationStack {
+            
             List {
                 ForEach(myEvents.events.sorted {$0.date < $1.date }) { event in
                     TaskListRow(event: event, formType: $formType)

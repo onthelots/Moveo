@@ -14,7 +14,6 @@ struct Home: View {
     @State private var showModal: Bool = false
     
     @EnvironmentObject var myEvents: EventStore
-    @EnvironmentObject var eventStore: EventStore
     @State private var dateSelected: DateComponents?
     @State private var displayEvents = false
     @State private var formType: EventFormType?
@@ -35,17 +34,6 @@ struct Home: View {
                     
                     Spacer()
                     
-                    
-                    NavigationLink {
-                        // TODO: - 설정페이지 연결(알림에 대한 설정을 추가하게 된다면 사용 아니면 삭제)
-                    } label: {
-                        Image(systemName: "gearshape.circle")
-                            .resizable()
-                            .frame(width: 30, height: 30)
-                            .foregroundColor(.mainColor)
-                        
-                    }
-                    
                     NavigationLink {
                         AddPostView()
                     } label: {
@@ -65,48 +53,43 @@ struct Home: View {
                 Divider()
                 
                 // MARK: - 일정계획 Title 및 일정 리스트 뷰
-                HStack {
-                    VStack {
-                        Text("일정계획")
-                            .font(.title3)
-                            .fontWeight(.bold)
-                    }
-                    Spacer()
-                    VStack {
-                        if inManager.pendingRequests.count == 0 {
-                            Text("일정을 등록해주세요")
+                VStack {
+                    HStack {
+                        VStack {
+                            Text("오늘일정")
+                                .font(.title3)
+                                .fontWeight(.bold)
+                        }
+                        VStack {
+                            Circle()
+                                .overlay {
+                                    Text(String(myEvents.events.count))
+                                        .font(.caption)
+                                        .foregroundColor(.white)
+                                }
                                 .foregroundColor(.gray)
-                                .font(.callout)
-                                .fontWeight(.light)
-                        } else {
-                            Text("")
+                                .frame(width: 20)
                         }
                     }
+                    .offset(x: -130)
                 }
                 .padding()
                 
-                //MARK: - TaskList 할일 리스트
-                ScrollView(.vertical, showsIndicators: false) {
-                    
-                    ForEach(inManager.pendingRequests, id: \.identifier) { request in
-                        VStack(alignment: .leading) {
-                            Text(request.content.title)
-                            Spacer()
-                            HStack {
-                                Text(request.identifier)
-                                    .font(.caption)
-                                    .foregroundColor(.secondary)
+                VStack {
+                    if myEvents.events.isEmpty {
+                        Text("오늘의 일정이 없습니다.")
+                            .foregroundColor(.gray)
+                            .font(.callout)
+                            .fontWeight(.light)
+                    } else {
+                        //MARK: - TaskList 할일 리스트
+                        VStack(spacing: 10) {
+                                DaysEventsListView(dateSelected: $dateSelected)
                             }
-                        }
-                        .swipeActions {
-                            Button(role: .destructive) {
-                                inManager.removeRequest(withIdentifier: request.identifier)
-                            } label: {
-                                Text("Delete")
-                            }
-                        }
                     }
                 }
+                .padding(.top, 20)
+                
             }
             
             // MARK: - 일정등록 ZStak 버튼
@@ -126,7 +109,6 @@ struct Home: View {
             }
             .offset(x: 140, y: -50)
         }
-        
         
         // MARK: - 로그인 버튼을 누를 경우, 권한설정 메세지가 발생함
         .task {
