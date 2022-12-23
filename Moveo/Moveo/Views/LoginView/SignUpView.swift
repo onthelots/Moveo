@@ -34,10 +34,21 @@ struct SignUpView: View {
                 
                 Text("닉네임")
                     .bold()
-                TextField("닉네임", text: $loginSignupStore.nickName)
-                    .shadow(radius: 2, y:1)
-                    .padding(.bottom)
-                    .disableAutocorrection(true)
+                HStack {
+                    TextField("닉네임", text: $loginSignupStore.nickName)
+                        .shadow(radius: 2, y:1)
+                        
+                        .disableAutocorrection(true)
+                    
+                    Button {
+                        loginSignupStore.nickName = ""
+                    } label: {
+                        Image(systemName: "x.circle")
+                            .resizable()
+                            .frame(width: 25, height: 25)
+                    }
+                }
+                .padding(.bottom)
                 
                 PassWordInputs()
                 
@@ -49,18 +60,16 @@ struct SignUpView: View {
             Spacer()
                 .frame(height: 50)
             
-            Button {
-                loginSignupStore.createNewAccount()
-                self.dissmissStart = false
-            } label: {
-                Text("가입완료")
+            NavigationLink(destination: ProfileImageSetupView(dismissToRoot: $dissmissStart)) {
+                Text("다음")
             }
+            .isDetailLink(false)
             .padding(.horizontal, 152)
             .padding(.vertical, 15)
             .foregroundColor(.white)
             .background(Color.mainColor)
             .cornerRadius(10)
-//            .disabled((loginSignupStore.signUpPw == loginSignupStore.signUpPwCheck) && (loginSignupStore.signUpPwCheck.count != 0) ? false : true)
+            .disabled((loginSignupStore.signUpPw == loginSignupStore.signUpPwCheck) && (loginSignupStore.signUpPwCheck.count != 0) ? false : true)
             
             Spacer()
         }
@@ -82,25 +91,56 @@ struct PassWordInputs: View {
             Group {
                 Text("비밀번호")
                     .bold()
-                SecureField("비밀번호 입력", text: $loginSignupStore.signUpPw)
-                    .shadow(radius: 2, y:1)
-                    .disableAutocorrection(true)
+                HStack {
+                    SecureField("비밀번호", text: $loginSignupStore.signUpPw)
+                        .shadow(radius: 2, y:1)
+                        .disableAutocorrection(true)
+                    
+                    Button {
+                        loginSignupStore.signUpPw = ""
+                    } label: {
+                        Image(systemName: "x.circle")
+                            .resizable()
+                            .frame(width: 25, height: 25)
+                    }
+
+                }
+            }
+            if loginSignupStore.signUpPw.count < 6{
+                Text("비밀번호를 6자리 이상 입력해주세요")
+                    .foregroundColor(.red)
+            } else {
+                Text("")
             }
             
             
             Group {
                 Text("비밀번호 확인")
+                    .padding(.top, 8)
                     .bold()
-                SecureField("비밀번호 재입력", text: $loginSignupStore.signUpPwCheck)
-                    .shadow(radius: 2, y:1)
-                    .disableAutocorrection(true)
+                HStack {
+                    SecureField("비밀번호 재입력", text: $loginSignupStore.signUpPwCheck)
+                        .shadow(radius: 2, y:1)
+                        .disableAutocorrection(true)
+                    
+                    Button {
+                        loginSignupStore.signUpPwCheck = ""
+                    } label: {
+                        Image(systemName: "x.circle")
+                            .resizable()
+                            .frame(width: 25, height: 25)
+                    }
+
+                }
             }
             
             
             if (loginSignupStore.signUpPw == loginSignupStore.signUpPwCheck) && (loginSignupStore.signUpPwCheck.count != 0) {
                 Text("비밀번호가 일치합니다")
                     .foregroundColor(.green)
-            } else {
+            } else if loginSignupStore.signUpPw.isEmpty {
+                Text("")
+            } else if (loginSignupStore.signUpPw != loginSignupStore.signUpPwCheck) {
                 Text("비밀번호가 일치하지 않습니다")
                     .foregroundColor(.red)
             }
@@ -122,7 +162,7 @@ struct IDInputs: View {
             Text("아이디")
                 .bold()
             HStack {
-                TextField("email", text: $loginSignupStore.signUpEmail)
+                TextField("email@email.com", text: $loginSignupStore.signUpEmail)
                     .shadow(radius: 2, y:1)
                     .disableAutocorrection(true)
                 Button {
@@ -133,7 +173,7 @@ struct IDInputs: View {
                         .padding(3)
                     
                 }
-                .alert("아이디가 중복되지 않았습니다", isPresented: $idNotOverlaped) {
+                .alert("사용 가능한 아이디입니다", isPresented: $idNotOverlaped) {
                     Button("확인", role: .cancel) {
                         idNotOverlapedColor = true
                     }
@@ -156,9 +196,20 @@ struct NameInputs: View {
         VStack(alignment: .leading) {
             Text("이름")
                 .bold()
-            TextField("이름", text: $loginSignupStore.name)
-                .shadow(radius: 2, y: 1)
+            HStack {
+                TextField("이름", text: $loginSignupStore.name)
+                    .shadow(radius: 2, y: 1)
                 .disableAutocorrection(true)
+                
+                Button {
+                    loginSignupStore.name = ""
+                } label: {
+                    Image(systemName: "x.circle")
+                        .resizable()
+                        .frame(width: 25, height: 25)
+                }
+
+            }
         }
         .padding(.bottom)
     }

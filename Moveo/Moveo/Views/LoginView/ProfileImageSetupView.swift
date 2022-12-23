@@ -37,13 +37,16 @@ struct ProfileImageSetupView: View {
                             .font(.largeTitle)
                             .foregroundColor(.gray)
                         
-                        Rectangle()
+//                        Rectangle()
+//                            .fill(Color.white)
+//                            .frame(width: 400, height: 340)
+//                            .cornerRadius(10)
+                        Circle()
                             .fill(Color.white)
-                            .frame(width: 400, height: 340)
-                            .cornerRadius(10)
+                            .frame(width: 250, height: 250)
                             .overlay(
                                 Circle()
-                                    .stroke(Color.black, lineWidth: 3)
+                                    .stroke(Color.black, lineWidth: 1)
                             )
                     }
                 }
@@ -53,11 +56,22 @@ struct ProfileImageSetupView: View {
             Spacer()
                 .frame(height: 70)
             
-            TextField("자기소개를 해주세요 :)", text: $loginSignupStore.description, axis: .vertical)
-                .padding()
-                .shadow(radius: 2, y:1)
-                .padding(.bottom)
-                .disableAutocorrection(true)
+//            TextField("자기소개를 해주세요 :)", text: $loginSignupStore.description, axis: .vertical)
+//                .padding()
+//                .shadow(radius: 2, y:1)
+//                .padding(.bottom)
+//                .disableAutocorrection(true)
+//                .textFieldStyle(.roundedBorder)
+            
+            TextField(text: $loginSignupStore.description, axis: .vertical) {
+                Text("자기소개를 해주세요 :)")
+            }
+            .padding(9)
+            .textInputAutocapitalization(.never)
+            .disableAutocorrection(true)
+            .background(Color(uiColor: .secondarySystemBackground))
+            .cornerRadius(10)
+            .padding()
             
             Spacer()
             
@@ -65,10 +79,18 @@ struct ProfileImageSetupView: View {
                 
             } label: {
                 NavigationLink(destination: CategoryView(dismissToRoot: $dismissToRoot)) {
-                    Text("회원가입")
+                    Text("다음")
                 }
                 .isDetailLink(false)
+                .padding(.horizontal, 152)
+                .padding(.vertical, 15)
+                .foregroundColor(.white)
+                .background(Color.mainColor)
+                .cornerRadius(10)
             }
+            
+            Spacer()
+                .frame(maxHeight: 50)
         }
         .fullScreenCover(isPresented: $profileImageSelected) {
             ImagePicker(image: $loginSignupStore.profileImageUrl)

@@ -24,7 +24,7 @@ struct LoginView: View {
                 
                 VStack {
                     Group {
-                        TextField("Email", text: $userStore.email)
+                        TextField("Email@email.com", text: $userStore.email)
                             .keyboardType(.emailAddress)
                             .autocorrectionDisabled()
                             .textInputAutocapitalization(.never)
@@ -48,6 +48,7 @@ struct LoginView: View {
                                 .foregroundColor(.black)
                         }
                     }
+                    .disabled(userStore.email.isEmpty || userStore.password.isEmpty ? true : false)
                     .padding()
                     
                     Spacer()
@@ -57,7 +58,7 @@ struct LoginView: View {
                             .font(.callout)
                             .foregroundColor(.gray)
                         
-                        NavigationLink(destination: ProfileImageSetupView(dismissToRoot: $dismissedToRoot), isActive: self.$dismissedToRoot) {
+                        NavigationLink(destination: SignUpView(dissmissStart: $dismissedToRoot), isActive: self.$dismissedToRoot) {
                             Text("회원가입")
                         }
                         .isDetailLink(false)
