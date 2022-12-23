@@ -9,9 +9,9 @@ import SwiftUI
 import SDWebImageSwiftUI
 
 struct FeedView: View {
-    @StateObject var loginSignupStore: LoginSignupStore = LoginSignupStore()
-    @StateObject var postStore: PostStore = PostStore()
-    @StateObject var likeStore: LikeStore = LikeStore()
+    @EnvironmentObject var loginSignupStore: LoginSignupStore
+    @EnvironmentObject var postStore: PostStore
+    @EnvironmentObject var likeStore: LikeStore
     
     @State private var cardScale: Bool = true
     @State private var cardScale1: Bool = true
@@ -75,5 +75,8 @@ struct FeedView: View {
 struct FeedView_Previews: PreviewProvider {
     static var previews: some View {
         FeedView()
+            .environmentObject(LoginSignupStore())
+            .environmentObject(PostStore())
+            .environmentObject(LikeStore())
     }
 }

@@ -54,14 +54,7 @@ class LoginSignupStore: ObservableObject {
     // TODO: - 앱을 실행시킬 때 초기화로 현재유저값을 받아와도 될 것 같음
     init() {
         currentUser = Auth.auth().currentUser
-//
-//        fetchUser()
-//
-//        if let userUid: String = currentUser?.uid {
-//           currentUserDataInput(uid: userUid)
-//        }
-//
-//        print(currentUserData?.nickName ?? "")
+        fetchCurrentUser()
     }
     
     // 로그인
@@ -213,15 +206,41 @@ class LoginSignupStore: ObservableObject {
             }
     }
     
-    // TODO: - 로그인 시 한번만 작동해도 될 것 같음 / 현재 사용자 정보를 받아오는 함수
-    func currentUserDataInput() {
-        let uid: String = currentUser?.uid ?? ""
+    // 현재 유저의 정보를 가져오는 함수
+    func fetchCurrentUser() {
+        let uid: String = Auth.auth().currentUser?.uid ?? ""
         
-        if !users.isEmpty {
-            let myUser: User = users.filter{ $0.id == uid }[0]
-            currentUserData = myUser
-        }
+        Firestore.firestore()
+            .collection("users")
+            .document(uid)
+            .getDocument { (snapshot, error) in
+                if let snapshot {
+                    let docData = snapshot.data()
+                    
+                    let id: String = docData?["id"] as? String ?? ""
+                    let name: String = docData?["name"] as? String ?? ""
+                    let nickName: String = docData?["nickName"] as? String ?? ""
+                    let email: String = docData?["email"] as? String ?? ""
+                    let profileImageUrl: String = docData?["profileImageUrl"] as? String ?? ""
+                    let category : [String] = docData?["category"] as? [String] ?? []
+                    let bookmark : [String] = docData?["bookmark"] as? [String] ?? []
+                    let description : String = docData?["description"] as? String ?? ""
+                    let user: User = User(id: id, email: email, name: name, nickName: nickName, profileImageUrl: profileImageUrl, category: category, bookmark: bookmark, description: description)
+                    
+                    self.currentUserData = user
+                }
+            }
     }
+    
+    // TODO: - 로그인 시 한번만 작동해도 될 것 같음 / 현재 사용자 정보를 받아오는 함수
+//    func currentUserDataInput() {
+//        let uid: String = currentUser?.uid ?? ""
+//        
+//        if !users.isEmpty {
+//            let myUser: User = users.filter{ $0.id == uid }[0]
+//            currentUserData = myUser
+//        }
+//    }
     
     // 북마크한 게시물들을 UserStore에 올리기, 삭제하기
     func uploadBookmarkedPost(selectedPostId: String) {
