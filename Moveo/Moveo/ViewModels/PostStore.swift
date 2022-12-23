@@ -177,4 +177,13 @@ class PostStore: ObservableObject {
                 }
             }
     }
+    
+    
+    
+    // 포스트 삭제 메서드
+    func removePost(_ post: Post) {
+        Firestore.firestore().collection("post")
+            .document(post.id).delete()
+        fetchPosts()
+    }
 }
