@@ -143,20 +143,16 @@ struct CardView: View {
                     HStack{
                         HStack {
                             Button {
-                                
-                                if likeStore.likes.map({ $0.id }).contains(loginSignupStore.currentUserData?.id) {
-                                    
+                                if likeToggle {
                                     likeStore.deleteLike(post: post, currentUid: loginSignupStore.currentUserData?.id ?? "")
                                     
-                                    likeToggle = false
-                                    
+                                    likeToggle.toggle()
                                 } else {
                                     likeStore.addLike(post: post, currentUid: loginSignupStore.currentUserData?.id ?? "", currentNickName: loginSignupStore.currentUserData?.nickName ?? "", currentProfileImage: loginSignupStore.currentUserData?.profileImageUrl ?? "")
                                     
-                                    likeToggle = true
+                                    likeToggle.toggle()
                                 }
-                                
-                                likeStore.fetchLikes(post: post)
+                                //likeStore.fetchLikes(post: post)
                                 
                             } label: {
                                 if likeToggle {
@@ -192,12 +188,12 @@ struct CardView: View {
                 }
             }
             .onAppear {
+                likeToggle = likeStore.currentUserLikedFetch(currentUid: loginSignupStore.currentUserData?.id ?? "", post: post)
                 loginSignupStore.fetchUser()
                 loginSignupStore.fetchCurrentUser()
                 checkBookmarked()
                 likeStore.fetchLikes(post: post)
                 postStore.fetchPosts()
-
             }
             
         }

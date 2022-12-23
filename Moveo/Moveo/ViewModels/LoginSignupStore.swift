@@ -54,14 +54,7 @@ class LoginSignupStore: ObservableObject {
     // TODO: - 앱을 실행시킬 때 초기화로 현재유저값을 받아와도 될 것 같음
     init() {
         currentUser = Auth.auth().currentUser
-//
-//        fetchUser()
-//
-//        if let userUid: String = currentUser?.uid {
-//           currentUserDataInput(uid: userUid)
-//        }
-//
-//        print(currentUserData?.nickName ?? "")
+        fetchCurrentUser()
     }
     
     // 로그인
@@ -247,7 +240,16 @@ class LoginSignupStore: ObservableObject {
                     }
                 }
         }
-
+    
+    // TODO: - 로그인 시 한번만 작동해도 될 것 같음 / 현재 사용자 정보를 받아오는 함수
+//    func currentUserDataInput() {
+//        let uid: String = currentUser?.uid ?? ""
+//        
+//        if !users.isEmpty {
+//            let myUser: User = users.filter{ $0.id == uid }[0]
+//            currentUserData = myUser
+//        }
+//    }
     
     // 북마크한 게시물들을 UserStore에 올리기, 삭제하기
     func uploadBookmarkedPost(selectedPostId: String) {
