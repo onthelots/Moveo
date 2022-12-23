@@ -82,9 +82,9 @@ struct Home: View {
                             .font(.callout)
                             .fontWeight(.light)
                     } else {
-                        //MARK: - TaskList 할일 리스트
+                        //TODO: - 메인 화면에서 오늘의 일정을 보여주는 방식 -> 왜 안뜰까??
                         VStack(spacing: 10) {
-                                DaysEventsListView(dateSelected: $dateSelected)
+                            HomeDaysEventsListView()
                             }
                     }
                 }

@@ -19,6 +19,7 @@
 		3F0B6D7C29557621004BAEE1 /* EventsCalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F0B6D7229557621004BAEE1 /* EventsCalendarView.swift */; };
 		3F0B6D7D29557621004BAEE1 /* AddTaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F0B6D7329557621004BAEE1 /* AddTaskView.swift */; };
 		3F0B6D7E29557621004BAEE1 /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F0B6D7429557621004BAEE1 /* Home.swift */; };
+		3FD7239429559A0B00ADDF0E /* HomeDaysEventsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FD7239329559A0B00ADDF0E /* HomeDaysEventsListView.swift */; };
 		522D216E29529A1200744207 /* OtherPersonProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 522D216D29529A1200744207 /* OtherPersonProfileView.swift */; };
 		522D21702952A92800744207 /* LikeStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 522D216F2952A92800744207 /* LikeStore.swift */; };
 		522D21722952E90A00744207 /* SearchCardDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 522D21712952E90A00744207 /* SearchCardDetailView.swift */; };
@@ -73,6 +74,7 @@
 		3F0B6D7229557621004BAEE1 /* EventsCalendarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventsCalendarView.swift; sourceTree = "<group>"; };
 		3F0B6D7329557621004BAEE1 /* AddTaskView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddTaskView.swift; sourceTree = "<group>"; };
 		3F0B6D7429557621004BAEE1 /* Home.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Home.swift; sourceTree = "<group>"; };
+		3FD7239329559A0B00ADDF0E /* HomeDaysEventsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeDaysEventsListView.swift; sourceTree = "<group>"; };
 		522D216D29529A1200744207 /* OtherPersonProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherPersonProfileView.swift; sourceTree = "<group>"; };
 		522D216F2952A92800744207 /* LikeStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeStore.swift; sourceTree = "<group>"; };
 		522D21712952E90A00744207 /* SearchCardDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCardDetailView.swift; sourceTree = "<group>"; };
@@ -132,6 +134,7 @@
 				3F0B6D6E29557621004BAEE1 /* TaskListView.swift */,
 				3F0B6D7029557621004BAEE1 /* TaskListRow.swift */,
 				3F0B6D6F29557621004BAEE1 /* DaysEventsListView.swift */,
+				3FD7239329559A0B00ADDF0E /* HomeDaysEventsListView.swift */,
 			);
 			path = TaskList;
 			sourceTree = "<group>";
@@ -430,6 +433,7 @@
 				529C2F98294DCA3E00366BCB /* LoginView.swift in Sources */,
 				3F0B6D6629556EB8004BAEE1 /* EventFormType.swift in Sources */,
 				F2E4CC5E2951430600D21D2A /* SignUpView.swift in Sources */,
+				3FD7239429559A0B00ADDF0E /* HomeDaysEventsListView.swift in Sources */,
 				52F42BF7294F7F2300F94AC1 /* ContainTabView.swift in Sources */,
 				52DAB11629502AD0005937DB /* Comment.swift in Sources */,
 				3F0B6D6729556EB8004BAEE1 /* Event.swift in Sources */,

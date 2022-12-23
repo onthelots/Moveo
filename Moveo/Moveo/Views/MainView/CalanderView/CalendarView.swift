@@ -13,6 +13,7 @@ struct CalendarView: UIViewRepresentable {
     @ObservedObject var eventStore: EventStore
     @Binding var dateSelected: DateComponents?
     @Binding var displayEvents: Bool
+
     
     func makeUIView(context: Context) -> some UICalendarView {
         let view = UICalendarView()
@@ -50,6 +51,9 @@ struct CalendarView: UIViewRepresentable {
         @MainActor
         func calendarView(_ calendarView: UICalendarView,
                           decorationFor dateComponents: DateComponents) -> UICalendarView.Decoration? {
+            
+            
+            
             let foundEvents = eventStore.events
                 .filter {$0.date.startOfDay == dateComponents.date?.startOfDay}
             if foundEvents.isEmpty { return nil }
