@@ -12,6 +12,9 @@ import SDWebImageSwiftUI
 struct SearchCardView: View {
     @EnvironmentObject var postStore: PostStore
     
+    @Binding var ScrollViewOffset: CGFloat
+    @Binding var StartOffset: CGFloat
+    
     var post: Post
     var searchText: String
     
@@ -27,13 +30,29 @@ struct SearchCardView: View {
                     .cornerRadius(10)
             }
         }
+        .overlay(
+            GeometryReader { proxy -> Color in
+                    DispatchQueue.main.async {
+                        if StartOffset == 0 {
+                            self.StartOffset = proxy.frame(in: .global).minY
+                        }
+                        let offset = proxy.frame(in: .global).minY
+                        self.ScrollViewOffset = offset - StartOffset
+                        
+                        print(self.ScrollViewOffset)
+                    }
+                    return Color.clear
+                }
+                .frame(width: 0, height: 0)
+                ,alignment: .top
+        )
     }
 }
 
 
 struct SearchCardView_Previews: PreviewProvider {
     static var previews: some View {
-        SearchCardView(post: PostStore().posts[0], searchText: "")
+        SearchCardView(ScrollViewOffset: .constant(0), StartOffset: .constant(0), post: PostStore().posts[0], searchText: "")
             .environmentObject(PostStore())
     }
 }

@@ -19,9 +19,15 @@ struct CategoryView: View {
                 VStack(alignment: .leading) {
                     Text("카테고리 선택하기")
                         .font(.largeTitle)
-                        .padding(.bottom, 5)
+                        .padding(.bottom)
+                    
                     Text("같은 카테고리를 선택한 사람들과 게시물을 공유하세요 :)")
                         .font(.headline)
+                    
+                    Text("중복 선택 가능")
+                        .font(.subheadline)
+                        .foregroundColor(Color.mainColor)
+                        .padding(.top, 1)
                 }
                 Spacer()
                     
@@ -81,10 +87,23 @@ struct CategoryView: View {
                     .frame(height: 130)
                 
                 
-                    NavigationLink(destination: SignUpView(dissmissStart: $dismissToRoot)) {
-                        Text("회원가입")
-                    }
-                    .isDetailLink(false)
+//                    NavigationLink(destination: SignUpView(dissmissStart: $dismissToRoot)) {
+//                        Text("회원가입")
+//                    }
+//                    .isDetailLink(false)
+                
+                Button {
+                    self.dismissToRoot = false
+                    userStore.createNewAccount()
+                } label: {
+                    Text("가입 완료")
+                        .padding(.horizontal, 152)
+                        .padding(.vertical, 15)
+                        .foregroundColor(.white)
+                        .background(Color.mainColor)
+                        .cornerRadius(10)
+                }
+
                 
 
                 

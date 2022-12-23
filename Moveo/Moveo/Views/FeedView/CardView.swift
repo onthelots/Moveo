@@ -14,15 +14,21 @@ struct CardView: View {
     @EnvironmentObject var loginSignupStore : LoginSignupStore
     @EnvironmentObject var likeStore: LikeStore
     
+    
     @State private var likeToggle = true
     @State private var markToggle = true
     @State private var tag: Int? = nil
     // Modal
     @State private var showModal : Bool = false
     
+    //alert
+    @State private var showingAlert = false
+    
+    
     var post: Post
     
     var body: some View {
+        
         NavigationStack {
             ZStack {
                 VStack {
@@ -76,14 +82,17 @@ struct CardView: View {
                                     EditPostView(post : post)
                                     
                                 }
-                                else{
-                                    Text("404 Error")
+                                else {
+                                    Text("접근 권한이 없습니다")
+                                    // 다른 계정에 접근했을 때 뭔가 경고창이나 알림메세지 같은 걸로 하면 좋을 것 같아요, 시도해보겠습니다
+                                    
                                 }
                             } label: {
                                 Image(systemName: "ellipsis")
                                     .foregroundColor(.black)
                             }
                             .padding(.trailing, 5)
+                            
                             
                             Button {
                                 
@@ -148,22 +157,23 @@ struct CardView: View {
                             } label: {
                                 if likeToggle {
                                     Image(systemName: "heart.fill")
-                                        .foregroundColor(Color.red)
-                                        .font(.title2)
+                                        .foregroundColor(Color.black)
                                     
                                 } else {
                                     Image(systemName: "heart")
-                                        .foregroundColor(Color.black)
-                                        .font(.title2)
+                                        .foregroundColor(Color.red)
                                 }
                             }
+                            
+                            Text("1.1k")
+                                .font(.caption2)
+                                .fontWeight(.light)
                             
                             NavigationLink(destination: {
                                 CommentView(post: post)
                             }, label: {
                                 Image(systemName: "message")
                                     .font(.title3)
-                                    .foregroundColor(.black)
                             })
                             
                             //TO DO : comment의 사용자 id를 카운트 해서 반영
@@ -178,11 +188,14 @@ struct CardView: View {
                 }
             }
             .onAppear {
-                checkBookmarked()
                 likeToggle = likeStore.currentUserLikedFetch(currentUid: loginSignupStore.currentUserData?.id ?? "", post: post)
-                
-                print(likeStore.currentUserLikedFetch(currentUid: loginSignupStore.currentUserData?.id ?? "", post: post))
+                loginSignupStore.fetchUser()
+                loginSignupStore.fetchCurrentUser()
+                checkBookmarked()
+                likeStore.fetchLikes(post: post)
+                postStore.fetchPosts()
             }
+            
         }
     }
     // 앱을 껐다 켰을 때 북마크가 되어있던 포스트인지 체크
