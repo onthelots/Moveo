@@ -13,6 +13,8 @@ struct MoveoApp: App {
     
     //MARK: - inManager 인스턴스 StateObjcet로 선언 (다른 뷰에서도 계속 사용됨)
     @StateObject var inManager = NotificationManager()
+    @StateObject var myEvents = EventStore(preview: true)
+
     
     init() {
         FirebaseApp.configure()
@@ -23,14 +25,13 @@ struct MoveoApp: App {
             ContentView()
                 .environmentObject(PostStore())
                 .environmentObject(LoginSignupStore())
-                .environmentObject(SampleTask())
                 .environmentObject(CommentStore())
                 .environmentObject(LikeStore())
                 .environmentObject(FollowStore())
-            //MARK: - environment 선언 -> inManager, Schedule, NotificationManager
+            //MARK: - environment 선언 -> inManager, NotificationManager
                 .environmentObject(inManager)
-                .environmentObject(Schedule())
                 .environmentObject(NotificationManager())
+                .environmentObject(myEvents)
         }
     }
 }
