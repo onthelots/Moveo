@@ -190,12 +190,12 @@ struct ProfileView: View {
             }
         }
         .onAppear{
+            //loginSignupStore.fetchCurrentUser()
             postStore.fetchPosts()
             makeBookMarkedPosts()
             fetchMyPosts(category: loginSignupStore.currentUserData?.category[0] ?? "")
             fetchUserExceptMe()
             loginSignupStore.fetchUser()
-            loginSignupStore.currentUserDataInput()
             followingStore.fetchFollowing()
             followingStore.fetchFollower()
         }
