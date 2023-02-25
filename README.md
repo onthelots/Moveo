@@ -103,7 +103,7 @@ Bundle ID : com.codelion.Moveo
 - Package 설치
 
 ```
-Firebase(총 4개) : FirebaseAuth, FirebaseStorage, FirebaseFirestore, FirebaseFirestoreSwift
+Firebase : FirebaseAuth, FirebaseStorage, FirebaseFirestore, FirebaseFirestoreSwift
 ```
 
 ```
