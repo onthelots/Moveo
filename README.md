@@ -85,11 +85,45 @@
 ```
 <br>
 
+## 📲 실행 가이드 및 설치 방법(How to build)
+### 공통
+- 다음 파일은 Build를 위한 필수 파일입니다. 
+- Build를 희망하실 경우, onthelots@naver.com으로 문의 부탁드립니다. 
+```
+GoogleService-Info.plist
+```
+
+### 설치 및 실행방법
+- Firebase 활용을 위한 Target 세팅
+
+```
+Bundle ID : com.codelion.Moveo
+```
+
+- Package 설치
+
+```
+Firebase(총 4개) : FirebaseAuth, FirebaseStorage, FirebaseFirestore, FirebaseFirestoreSwift
+```
+
+```
+SDWebImageSwiftUI : https://github.com/SDWebImage/SDWebImage (직접 설치)
+```
+<br>
+
 ## ⚙️ 개발 환경
 - iOS 16.0 이상
 - iPhone 14 Pro에서 최적화됨
 - 가로모드 미지원, 다크모드 미지원
+
 <br>
 
 ## 👨‍👩‍👧‍👦 참여자
 #### 진준호, 이종현, 전근섭, 임재혁, 기태욱
+
+<br>
+
+## 🔖License(라이센스)
+Moveo is available under the MIT license. See the LICENSE file for more info.
+
+- SDWebImage(https://github.com/SDWebImage/SDWebImage)
