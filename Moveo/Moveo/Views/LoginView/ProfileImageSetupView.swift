@@ -56,13 +56,6 @@ struct ProfileImageSetupView: View {
             Spacer()
                 .frame(height: 70)
             
-//            TextField("자기소개를 해주세요 :)", text: $loginSignupStore.description, axis: .vertical)
-//                .padding()
-//                .shadow(radius: 2, y:1)
-//                .padding(.bottom)
-//                .disableAutocorrection(true)
-//                .textFieldStyle(.roundedBorder)
-            
             TextField(text: $loginSignupStore.description, axis: .vertical) {
                 Text("자기소개를 해주세요 :)")
             }

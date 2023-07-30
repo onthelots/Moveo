@@ -95,7 +95,6 @@ struct AddTaskView: View {
                 .buttonStyle(.borderedProminent)
             }
         }
-//        .navigationTitle(viewModel.updating ? "Update" : "New Event")
         .onAppear {
             focus = true
         }

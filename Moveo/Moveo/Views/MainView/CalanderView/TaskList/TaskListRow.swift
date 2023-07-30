@@ -10,9 +10,7 @@ import SwiftUI
 
 // MARK: - 사용자가 입력한 일정을 보여주는 TaskListRow View
 struct TaskListRow: View {
-    
-    
-    // Event 값을 받아오기 위해 event 프로퍼티 만들고..
+
     let event: Event
     @Binding var formType: EventFormType?
     

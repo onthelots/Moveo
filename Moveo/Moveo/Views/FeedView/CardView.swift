@@ -206,19 +206,4 @@ struct CardView: View {
             }
         }
     }
-    
-    //    func checkLiked() {
-    //        if let currentUser = loginSignupStore.currentUserData {
-    //            let postID = post.id
-    //        }
-    //    }
 }
-
-//struct CardView_Previews: PreviewProvider {
-//
-//    static var previews: some View {
-//        CardView(, post: <#Post#>)
-//            .environmentObject(PostStore())
-//            .environmentObject(LoginSignupStore())
-//    }
-//}

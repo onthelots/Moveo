@@ -67,12 +67,6 @@ struct Event: Identifiable {
     static var sampleEvents: [Event] {
         return [
             Event(eventType: .운동, date: Date().diff(numDays: 0), note: "Take dog to groomers"),
-//            Event(date: Date().diff(numDays: -1), note: "Get gift for Emily"),
-//            Event(eventType: .운동, date: Date().diff(numDays: 6), note: "File tax returns."),
-//            Event(eventType: .예술, date: Date().diff(numDays: 2), note: "Dinner party at Dave and Janet's"),
-//            Event(eventType: .공부, date: Date().diff(numDays: -1), note: "Complete Audit."),
-//            Event(eventType: .멘탈케어, date: Date().diff(numDays: -3), note: "Football Game"),
-//            Event(date: Date().diff(numDays: -4), note: "Plan for winter vacation.")
         ]
     }
 }

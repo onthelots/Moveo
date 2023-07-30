@@ -10,6 +10,7 @@ import Foundation
 import Firebase
 import FirebaseStorage
 import FirebaseFirestore
+import FirebaseAuth
 import SwiftUI
 
 // MARK: LoginSignupStore
@@ -93,39 +94,48 @@ class LoginSignupStore: ObservableObject {
     // TODO: - 아래에 profileImageToStorage 함수와 기능적으로 겹침, 하나로 만들 수 있도록 해볼 것 / user 정보 database에 저장
     func storeUserInfoToDatabase(uid: String) {
         
-        let uid = uid
+//        let uid = uid
         
         let ref = Storage.storage().reference(withPath: uid)
-        
-        guard let imageData = profileImageUrl?.jpegData(compressionQuality: 0.5) else {
-            return
+
+      guard let imageData = profileImageUrl?.jpegData(compressionQuality: 0.5) else {
+        return
+      }
+      ref.putData(imageData) { metadata, error in
+        if let error = error {
+          print("\(error)")
+          return
         }
-        ref.putData(imageData) { metadata, error in
+        ref.downloadURL() { url, error in
+          if let error = error {
+            print(error)
+            return
+          }
+          print(url?.absoluteString ?? "망함")
+
+          guard let url = url else { return }
+
+          print(uid)
+
+          // model을 쓰면 쉽게 구조화할 수 있음
+          let userData: [String: Any] = [
+            "name": self.name,
+            "nickName": self.nickName,
+            "email": self.signUpEmail,
+            "id": uid,
+            "profileImageUrl": url.absoluteString,
+            "category": self.selectedCategories,
+            "bookmark": self.bookmark,
+            "description": self.description
+          ]
+
+          Firestore.firestore().collection("users").document(uid).setData(userData) { error in
             if let error = error {
-                print("\(error)")
-                return
+              print(error)
+              return
             }
-            ref.downloadURL() { url, error in
-                if let error = error {
-                    print(error)
-                    return
-                }
-                print(url?.absoluteString ?? "망함")
-                
-                guard let url = url else { return }
-                
-                print(uid)
-                
-                // model을 쓰면 쉽게 구조화할 수 있음
-                let userData = ["name" : self.name, "nickName" : self.nickName, "email" : self.signUpEmail, "id" : uid, "profileImageUrl": url.absoluteString, "category": self.selectedCategories, "bookmark" : self.bookmark, "description" : self.description] as [String : Any]
-                
-                Firestore.firestore().collection("users").document(uid).setData(userData as [String : Any]) { error in
-                    if let error = error {
-                        print(error)
-                        return
-                    }
-                }
-            }
+          }
+        }
             
         }
         //fetchUser()
@@ -167,14 +177,21 @@ class LoginSignupStore: ObservableObject {
         nickName = users.filter{ $0.id == uid }[0].nickName
         signUpEmail = users.filter{ $0.id == uid }[0].email
         
-        let userData = ["name": name, "nickName": nickName, "email": signUpEmail, "uid": uid, "profileImageUrl": profileImageUrl.absoluteString]
-        
-        Firestore.firestore().collection("users").document(uid).setData(userData as [String : Any]) { error in
-            if let error = error {
-                print(error)
-                return
-            }
-        }
+
+      let userData: [String: Any] = [
+          "name": name,
+          "nickName": nickName,
+          "email": signUpEmail,
+          "uid": uid,
+          "profileImageUrl": profileImageUrl.absoluteString
+      ]
+
+      Firestore.firestore().collection("users").document(uid).setData(userData) { error in
+          if let error = error {
+              print(error)
+              return
+          }
+      }
         
         self.fetchUser()
     }
@@ -216,30 +233,31 @@ class LoginSignupStore: ObservableObject {
 //            currentUserData = myUser
 //        }
 //    }
-    func fetchCurrentUser() {
-            let uid: String = Auth.auth().currentUser?.uid ?? ""
-            
-            Firestore.firestore()
-                .collection("users")
-                .document(uid)
-                .getDocument { (snapshot, error) in
-                    if let snapshot {
-                        let docData = snapshot.data()
-                        
-                        let id: String = docData?["id"] as? String ?? ""
-                        let name: String = docData?["name"] as? String ?? ""
-                        let nickName: String = docData?["nickName"] as? String ?? ""
-                        let email: String = docData?["email"] as? String ?? ""
-                        let profileImageUrl: String = docData?["profileImageUrl"] as? String ?? ""
-                        let category : [String] = docData?["category"] as? [String] ?? []
-                        let bookmark : [String] = docData?["bookmark"] as? [String] ?? []
-                        let description : String = docData?["description"] as? String ?? ""
-                        let user: User = User(id: id, email: email, name: name, nickName: nickName, profileImageUrl: profileImageUrl, category: category, bookmark: bookmark, description: description)
-                        
-                        self.currentUserData = user
-                    }
-                }
-        }
+  func fetchCurrentUser() {
+      if let uid = Auth.auth().currentUser?.uid {
+          Firestore.firestore().collection("users").document(uid).getDocument { (snapshot, error) in
+              if let error = error {
+                  print("Error fetching current user:", error)
+                  return
+              }
+
+              if let docData = snapshot?.data() {
+                  let id: String = docData["id"] as? String ?? ""
+                  let name: String = docData["name"] as? String ?? ""
+                  let nickName: String = docData["nickName"] as? String ?? ""
+                  let email: String = docData["email"] as? String ?? ""
+                  let profileImageUrl: String = docData["profileImageUrl"] as? String ?? ""
+                  let category : [String] = docData["category"] as? [String] ?? []
+                  let bookmark : [String] = docData["bookmark"] as? [String] ?? []
+                  let description : String = docData["description"] as? String ?? ""
+
+                  let user = User(id: id, email: email, name: name, nickName: nickName, profileImageUrl: profileImageUrl, category: category, bookmark: bookmark, description: description)
+
+                  self.currentUserData = user
+              }
+          }
+      }
+  }
     
     // TODO: - 로그인 시 한번만 작동해도 될 것 같음 / 현재 사용자 정보를 받아오는 함수
 //    func currentUserDataInput() {

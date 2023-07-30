@@ -85,13 +85,7 @@ struct CategoryView: View {
                 }
                 Spacer()
                     .frame(height: 130)
-                
-                
-//                    NavigationLink(destination: SignUpView(dissmissStart: $dismissToRoot)) {
-//                        Text("회원가입")
-//                    }
-//                    .isDetailLink(false)
-                
+              
                 Button {
                     self.dismissToRoot = false
                     userStore.createNewAccount()

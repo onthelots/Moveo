@@ -16,7 +16,6 @@ struct DaysEventsListView: View {
     
     @StateObject var postStore: PostStore = PostStore()
     @StateObject var likeStore: LikeStore = LikeStore()
-    
 
     var body: some View {
         NavigationStack {
@@ -39,27 +38,26 @@ struct DaysEventsListView: View {
                     }
                 }
             }
-//            .navigationTitle(dateSelected?.date?.formatted(date: .long, time: .omitted) ?? "")
         }
     }
 }
 
 struct DaysEventsListView_Previews: PreviewProvider {
-    static var dateComponents: DateComponents {
-        var dateComponents = Calendar.current.dateComponents(
-            [.month,
-             .day,
-             .year,
-             .hour,
-             .minute],
-            from: Date())
-        dateComponents.timeZone = TimeZone.current
-        dateComponents.calendar = Calendar(identifier: .gregorian)
-        return dateComponents
-    }
-    static var previews: some View {
-        DaysEventsListView(dateSelected: .constant(dateComponents))
-            .environmentObject(EventStore(preview: true)
-    )
-    }
+  static var dateComponents: DateComponents {
+    var dateComponents = Calendar.current.dateComponents(
+      [.month,
+       .day,
+       .year,
+       .hour,
+       .minute],
+      from: Date())
+    dateComponents.timeZone = TimeZone.current
+    dateComponents.calendar = Calendar(identifier: .gregorian)
+    return dateComponents
+  }
+  static var previews: some View {
+    DaysEventsListView(dateSelected: .constant(dateComponents))
+      .environmentObject(EventStore(preview: true)
+      )
+  }
 }

@@ -17,34 +17,37 @@ class FollowStore : ObservableObject {
     @Published var followings : [Following] = []
     @Published var followers : [Follower] = []
     @Published var currentUser: Firebase.User?
-    
-    init() {
-        currentUser = Auth.auth().currentUser
-            }
+
+  init() {
+    currentUser = Auth.auth().currentUser
+  }
     
     // 팔로잉된 정보를 store에서 가져오는 기능
-    func fetchFollowing() {
-        Firestore.firestore().collection("users")
-            .document(self.currentUser?.uid ?? "")
-            .collection("Following")
-            .getDocuments { (snapshot, error) in
-                self.followings.removeAll()
-                
-                if let snapshot {
-                    for document in snapshot.documents {
-                     
-                        let docData = document.data()
-                        let id : String = docData["id"] as? String ?? ""
-                        let nickName: String = docData["nickName"] as? String ?? ""
-                        let imageUrl: String = docData["imageUrl"] as? String ?? ""
-                        let following: Following = Following(id: id, nickName: nickName, imageUrl: imageUrl)
-                        
-                        self.followings.append(following)
-                    }
-                }
-            }
-    }
-    
+  func fetchFollowing() {
+      Firestore.firestore().collection("users")
+          .document(self.currentUser?.uid ?? "")
+          .collection("Following")
+          .getDocuments { (snapshot, error) in
+              DispatchQueue.main.async { // 메인 스레드에서 처리하도록 수정
+                  self.followings.removeAll()
+
+                  if let snapshot = snapshot {
+                      for document in snapshot.documents {
+                          let docData = document.data()
+                          let id : String = docData["id"] as? String ?? ""
+                          let nickName: String = docData["nickName"] as? String ?? ""
+                          let imageUrl: String = docData["imageUrl"] as? String ?? ""
+                          let following: Following = Following(id: id, nickName: nickName, imageUrl: imageUrl)
+
+                          self.followings.append(following)
+                      }
+                  } else {
+                      print("Error fetching following:", error?.localizedDescription ?? "Unknown error")
+                  }
+              }
+          }
+  }
+
     // 팔로워한 정보를 store에서 가져오는 기능
     func fetchFollower() {
         Firestore.firestore().collection("users")

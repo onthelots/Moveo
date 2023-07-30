@@ -10,7 +10,6 @@ import Firebase
 import FirebaseStorage
 import SDWebImageSwiftUI
 
-
 struct EditPostView: View {
     // dismiss를 사용하기 위해 필요
     @Environment(\.dismiss) private var dismiss
@@ -77,9 +76,6 @@ struct EditPostView: View {
                     .frame(height: 200)
                 
                 if postStore.bodyText == "" {
-                    //                    Text("내용을 입력해주세요")
-                    //                        .opacity(0.5)
-                    //                        .offset(x: -100, y: -65)
                     Text(post.bodyText)
                         .opacity(0.5)
                         .offset(x: -80, y: -65)

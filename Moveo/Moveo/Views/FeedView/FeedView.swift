@@ -46,8 +46,6 @@ struct FeedView: View {
                     
                     Divider()
                     
-                    
-                    
                     // TODO: - 추후 피드들 넣을 스크롤뷰, 현재 카드형태로 넣을 예정
                     ScrollView(showsIndicators: false, content: {
                         ForEach(postStore.posts) { post in

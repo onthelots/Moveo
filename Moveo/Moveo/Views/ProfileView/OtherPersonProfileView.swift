@@ -35,18 +35,7 @@ struct OtherPersonProfileView: View {
                 Color.backgroundColor
                     .edgesIgnoringSafeArea(.all)
                 
-                VStack {
-//                    HStack(spacing: 15) {
-//                        Text(loginSignupStore.postUserData?.nickName ?? "")
-//                            .font(.title2)
-//                            .bold()
-//
-//                        Spacer()
-//
-//                    }
-//                    .padding(.horizontal, 20)
-//                    .padding(.top, 10)
-                    
+                VStack {     
                     ScrollView {
                         VStack {
                             HStack(spacing: 50) {

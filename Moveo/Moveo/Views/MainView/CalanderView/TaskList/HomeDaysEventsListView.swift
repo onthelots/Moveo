@@ -11,7 +11,6 @@ struct HomeDaysEventsListView: View {
     @State private var dateSelected: DateComponents?
     var body: some View {
         VStack {
-//            DaysEventsListView(dateSelected: $dateSelected)
             TaskListView()
         }
     }

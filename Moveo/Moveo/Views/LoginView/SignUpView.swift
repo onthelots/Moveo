@@ -51,8 +51,6 @@ struct SignUpView: View {
                 .padding(.bottom)
                 
                 PassWordInputs()
-                
-                
             }
             .textFieldStyle(.roundedBorder)
             .padding(.horizontal, 20)
@@ -77,8 +75,6 @@ struct SignUpView: View {
         
     }
 }
-
-
 
 struct PassWordInputs: View {
     @EnvironmentObject var loginSignupStore: LoginSignupStore

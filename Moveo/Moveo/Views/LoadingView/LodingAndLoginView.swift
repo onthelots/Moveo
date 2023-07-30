@@ -11,7 +11,6 @@ struct LodingAndLoginView: View {
     @EnvironmentObject var loginSignupStore: LoginSignupStore
     
     var body: some View {
-        // 로딩 - 로그인뷰를 자연스럽게 연결하기 위해서 사용
         if loginSignupStore.lodingViewChanger {
             LodingView()
         } else {

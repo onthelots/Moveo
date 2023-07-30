@@ -11,12 +11,10 @@ import FirebaseStorage
 
 
 struct AddPostView: View {
-    // dismiss를 사용하기 위해 필요
     @Environment(\.dismiss) private var dismiss
     @EnvironmentObject var postStore: PostStore
     @EnvironmentObject var loginSignupStore: LoginSignupStore
-    
-    // imagePicker를 사용하기 위해 필요
+
     @State private var imagePickerSelected: Bool = false
     @State var image: UIImage?
     
@@ -102,10 +100,7 @@ struct AddPostView: View {
 
         }
         .fullScreenCover(isPresented: $imagePickerSelected) {
-            ImagePicker(image: $postStore.postImage)
-        }
-        .onAppear{
-            //loginSignupStore.currentUserDataInput()
+          ImagePicker(image: $postStore.postImage)
         }
     }
 }
